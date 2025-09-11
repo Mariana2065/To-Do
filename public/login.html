@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO - Iniciar Sesión</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+       
+</head>
+<body>
+    <div class="container-login">
+        <div class="left-section-login">
+            <div class="boton-registro-login-left">
+                <button class="btn-registro-login" onclick="location.href='registro.html'">Registrar</button>
+                <button class="btn-login-login">Iniciar Sesión</button>
+            </div>
+        </div>
+        
+        <div class="right-section">
+            <div class="logo">
+                <div class="logo-icon"><img src="../assets/css/img/Logo to-do.png" alt=""></div>
+            </div>
+            
+            <form class="form-container" id="registerForm">
+                <div class="form-group">
+                    <input type="email" class="form-input login" placeholder="Email" required>
+                </div>
+                
+                <div class="password-row">
+                    <input type="password" class="form-input login" placeholder="Contraseña" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

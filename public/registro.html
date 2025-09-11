@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO - Registro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+
+<body>
+    <div class="container-registro">
+        <div class="left-section">
+            <div class="boton-registro-login-left">
+                <button class="btn-registro active" onclick="location.href='registro.html'" >Registrar</button>
+                <button class="btn-login" onclick="location.href='login.html'">Iniciar Sesión</button>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="logo">
+                <div class="logo-icon"><img src="../assets/css/img/Logo to-do.png" alt=""></div>
+            </div>
+
+            <form class="form-container" id="registerForm">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email" required>
+                </div>
+
+                <div class="password-row">
+                    <input type="password" class="form-input" placeholder="Contraseña" required>
+                    <input type="password" class="form-input" placeholder="Verificar Contraseña" required>
+                </div>
+
+                <button type="submit" class="register-btn">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

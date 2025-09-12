@@ -240,3 +240,26 @@
          gap: 25px;
      }
  }
+     .estrella {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      opacity: 0.8;
+      animation: flotar linear infinite, brillar ease-in-out infinite alternate;
+    }
+
+    .estrella svg {
+      width: 100%;
+      height: 100%;
+      fill: white;
+    }
+
+    @keyframes flotar {
+      from { transform: translateY(110vh) rotate(0deg); }
+      to   { transform: translateY(-120vh) rotate(360deg); }
+    }
+
+    @keyframes brillar {
+      from { opacity: 0.3; }
+      to   { opacity: 1; }
+    }

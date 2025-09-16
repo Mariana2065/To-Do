@@ -36,16 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO DO - Registro <?= APP_NAME ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
+
 <body>
     <div class="container-registro">
 
         <div class="left-section">
             <div id="espacio" class="fondo-estrellas"></div>
             <div class="boton-registro-login-left">
-                <button class="btn-registro active" onclick="location.href='registro.php'" >Registrar</button>
+                <button class="btn-registro active" onclick="location.href='registro.php'">Registrar</button>
                 <button class="btn-login" onclick="location.href='login.php'">Iniciar Sesión</button>
             </div>
         </div>
@@ -55,13 +58,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="logo-icon"><img src="../assets/css/img/Logo to-do.png" alt=""></div>
             </div>
 
-             <?php if (!empty($error)): ?>
-                <p style="color:red"><?= $error ?></p>
-            <?php endif; ?>
+          <div class="w-75 mx-auto"> 
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?= $error ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+        <?php endif; ?>
 
-            <?php if (!empty($success)): ?>
-                <p style="color:green"><?= $success ?></p>
-                <a href="login.php" class="login-btn">Ir al login</a>
+        <?php if (!empty($success)): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= $success ?>
+            </div>
             <?php else: ?>
 
                 <form method="POST" class="form-container" id="registerForm">
@@ -83,6 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php endif; ?>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     <script src="../assets/script/script.js"></script>
 </body>

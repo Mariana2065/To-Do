@@ -31,6 +31,7 @@
      align-items: center;
      justify-content: center;
      position: relative;
+     align-items: center;
  }
  .left-section-login {
     flex: 1;
@@ -105,6 +106,7 @@
      display: flex;
      flex-direction: column;
      justify-content: center;
+     align-items: center;
  }
 
  .logo {
@@ -132,7 +134,11 @@
  }
 
  .form-container {
+    display: flex;
+    flex-direction: column;
      width: 90%;
+     margin-top: -3rem;
+     align-items: stretch;
  }
 
  .form-group {

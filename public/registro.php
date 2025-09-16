@@ -5,11 +5,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombre = trim($_POST['nombre']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
     // Validar campos
-    if (empty($nombre) || empty($email) || empty($password)) {
+    if (empty($nombre) || empty($email) || empty($password) || empty($confirm_password)) {
         $error = "Todos los campos son obligatorios.";
-    } else {
+    } elseif($password !== $confirm_password){
+        $error = "Las contraseñas no coinciden.";
+    }
+    else {
         // Verificar si el email ya existe
         $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
         $stmt->execute([$email]);
@@ -83,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <div class="password-row">
                         <input type="password" name="password" class="form-input" placeholder="Contraseña" required>
-                        <input type="password" name="password" class="form-input" placeholder="Verificar Contraseña" required>
+                        <input type="password" name="confirm_password" class="form-input" placeholder="Verificar Contraseña" required>
                     </div>
 
                     <button type="submit" class="register-btn">Registrar</button>

@@ -1,4 +1,4 @@
-//Comentario 
+
 <?php
 require_once __DIR__ . '/../init.php';
 
@@ -66,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <button type="submit" class="login-btn">Iniciar Sesión</button>
             </form>
         </div>
+        <a href="recuperar_contraseña.php">¿Olvidaste tu contraseña?</a>
     </div>
 
     <script src="../assets/script/script.js"></script>

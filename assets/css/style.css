@@ -9,6 +9,8 @@
      --color-rosado: #F0C6D8;
      --color-morado: #DAC3E2;
      --color-amarillo: #FCF5C1;
+     --color-cremita:#F4F5F0;
+     --color-rosa-fuerte:#ff7eb6;
  }
 
  @import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
@@ -210,7 +212,8 @@
  }
 
  .login-btn,
- #btn-actualizar-contraseña {
+ #btn-actualizar-contraseña
+  {
      width: 100%;
      background: #F0C6D8;
      color: white;
@@ -402,71 +405,49 @@
  }
 
  /*Dashboard estilos*/
- .dashboard-body {
-     font-family: 'Philosopher', sans-serif;
-     background: #f5f7fa;
-     display: flex;
-     min-height: 100vh;
-     margin: 0;
-     padding: 0;
-     overflow: hidden;
- }
 
  /* Sidebar */
  .sidebar {
-     width: 220px;
-     background: #f6f6f0;
+     width: 300px;
+     background: var(--color-cremita);
      padding: 20px;
      display: flex;
      flex-direction: column;
      border-right: 1px solid #ddd;
+     height: 100vh;
  }
 
- .sidebar .logo {
-     text-align: center;
-     margin-bottom: 20px;
+ .sidebar-content{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.205);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
  }
+.user{
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
 
- .sidebar .logo img {
-     width: 80px;
-     height: 80px;
-     object-fit: cover;
- }
-
- .sidebar .logo-text {
-     font-size: 18px;
-     font-weight: 700;
-     color: #2c3e50;
-     letter-spacing: 1px;
-     margin-top: 10px;
- }
-
- .sidebar .user {
-     text-align: center;
-     margin-bottom: 20px;
-     padding: 15px;
-     background: white;
-     border-radius: 10px;
-     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
- }
-
- .sidebar .user .user-icon {
-     width: 40px;
-     height: 40px;
-     border-radius: 50%;
-     background: linear-gradient(135deg, #a8c8ec 0%, #7fb3d3 50%, #91b8db 100%);
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin: 0 auto 10px;
-     color: white;
-     font-weight: bold;
+ .user-avatar-sidebar{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 5px;
  }
 
  .sidebar .user .user-name {
+    font-family: philosopher, sans-serif;
      font-weight: 600;
-     color: #2c3e50;
-     font-size: 14px;
+     color: black;
+     font-size: 20px;
  }
 
  .sidebar .search input {
@@ -511,32 +492,35 @@
 
  /* Main content */
  .main {
+background: #F0C6D8;
+background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 232, 1) 100%);     height: 100vh;
      flex: 1;
-     background: linear-gradient(135deg, #c8d9ec 0%, #e3c7e8 50%, #f7d6e6 100%);
-     padding: 30px;
-     overflow-y: auto;
- }
+    border-radius: 15px;}
 
  .welcome-header {
-     background: white;
-     padding: 30px;
-     border-radius: 20px;
-     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
      margin-bottom: 30px;
      text-align: center;
+     margin-top: 200px;
  }
 
  .welcome-header h1 {
-     color: #2c3e50;
+     color: white;
      font-size: 28px;
      margin-bottom: 10px;
+     font-family: philosopher, sans-serif;
  }
 
  .welcome-header p {
      color: #7f8c8d;
      font-size: 16px;
  }
-
+.welcome-header img{
+    width: 250px;
+    height: 250px;
+}
  .dashboard-grid {
      display: grid;
      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -633,7 +617,7 @@
  }
 
  .logout-btn {
-     background: #e74c3c;
+     background:var(--color-rosa-fuerte);
      color: white;
      border: none;
      padding: 10px 20px;
@@ -648,7 +632,7 @@
  }
 
  .logout-btn:hover {
-     background: #c0392b;
+     background: var(--color-rosado);
      transform: translateY(-2px);
  }
 
@@ -670,14 +654,7 @@
          grid-template-columns: 1fr;
      }
  }
-
- .mensaje-reset-contraseña {
-     background-color: #d4edda;
-     color: #155724;
-     border: 1px solid #c3e6cb;
-     padding: 15px;
-     margin-top: 20px;
-     border-radius: 8px;
-     text-align: center;
-     font-weight: bold;
- }
+.icons-sidebar{
+    width: 35px;
+    height: 35px;
+}

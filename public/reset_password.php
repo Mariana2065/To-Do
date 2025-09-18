@@ -65,24 +65,37 @@ else if (isset($_GET['token'])) {
 <head>
     <meta charset="UTF-8">
     <title>Restablecer Contraseña</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <h3>Restablecer Contraseña</h3>
+     <div class="container-login">
+        <div class="left-section-login">
+            <div id="espacio" class="fondo-estrellas"></div>
+
+            <div class="boton-registro-login-left">
+                <button class="btn-login-login" onclick="location.href='login.php'">Iniciar Sesión</button>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="logo">
+                <div class="logo-icon"><img src="../assets/css/img/Logo to-do.png" alt="Logo TO-DO"></div>
+            </div>
+    <h3 class="titulo-interfaz-derecha-reset">Restablecer Contraseña</h3>
     <?php if ($error): ?>
         <p style="color: red;"><?= $error ?></p>
     <?php endif; ?>
 
     <?php if ($token_valido): ?>
-        <form action="reset_password.php" method="POST">
-            <input type="hidden" name="token" value="<?= htmlspecialchars($_GET['token']) ?>">
-            <label for="password">Nueva Contraseña:</label>
-            <input type="password" id="password" name="password" required><br><br>
-            <label for="confirm_password">Confirmar Contraseña:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-            <button type="submit">Actualizar Contraseña</button>
+        <form action="reset_password.php" class="form-container" method="POST">
+            <input type="hidden" class="form-reset" name="token" value="<?= htmlspecialchars($_GET['token']) ?>">
+            <input type="password" id="password" class="form-reset" placeholder="Nueva Contraseña" required><br><br>
+            <input type="password" id="confirm_password" class="form-reset" placeholder="Confirmar Contraseña" name="confirm_password" required><br><br>
+            <button type="submit" id="btn-actualizar-contraseña">Actualizar Contraseña</button>
         </form>
     <?php else: ?>
         <p>No se encontró un enlace válido para restablecer la contraseña.</p>
     <?php endif; ?>
+    <script src="../assets/script/script.js"></script>
 </body>
 </html>

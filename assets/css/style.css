@@ -197,7 +197,8 @@
      transition: all 0.3s ease;
      margin-top: 30px;
  }
- .login-btn{
+ .login-btn,
+ #btn-actualizar-contraseña{
      width: 100%;
      background:  #F0C6D8;
      color: white;
@@ -301,8 +302,13 @@
 /*Titulo de las interfaces de recuperación a la derecha*/
 .titulo-interfaz-derecha {
     margin-top: -2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
     color:#91b5e0 ;
+}
+.titulo-interfaz-derecha-reset {
+    margin-top: -2rem;
+    margin-bottom: 4rem;
+    color:#ff7eb6 ;
 }
 /*input email recuperacion contraseña*/
 #email_recuperacion {
@@ -321,8 +327,8 @@
 
 .modal-header {
   background-color: #91b5e0;
-  color: white; /* Color del texto del encabezado */
-  border-bottom: 2px solid #91b5e0; /* Color de borde inferior */
+  color: white;
+  border-bottom: 2px solid #91b5e0; 
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -345,4 +351,17 @@
 .modal-footer .btn-secondary:hover {
   background-color: #91b5e0;
   color: white;
+}
+.form-reset{
+       width: 100%;
+     padding: 15px 0;
+     border: none;
+     border-bottom: 2px solid #e1e8ed;
+     background: transparent;
+     font-size: 16px;
+     color: #2c3e50;
+     outline: none;
+     transition: all 0.3s ease;
+    border-bottom-color: #F0C6D8;
+    width: 100%;
 }

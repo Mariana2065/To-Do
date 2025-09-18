@@ -60,3 +60,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+//Script alertas confirmacion y error
+document.addEventListener('DOMContentLoaded', () => {
+    let form = document.getElementById('reset-form');
+    let alertmensaje = document.getElementById('alert-mensaje');
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            let formData = new FormData(form);
+            try {
+                let response = await fetch('reset_password.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let result = await response.json();
+                alertmensaje.textContent = result.message;
+                alertmensaje.style.display = 'block';
+
+                if (result.success) {
+                    alertmensaje.classList.remove('alert-danger');
+                    alertmensaje.classList.add('alert-success');
+                    form.reset(); // Opcional: limpiar el formulario
+                    // Opcional: redireccionar al login después de un tiempo
+                    // setTimeout(() => {
+                    //     window.location.href = 'login.php';
+                    // }, 3000); 
+                } else {
+                    alertmensaje.classList.remove('alert-success');
+                    alertmensaje.classList.add('alert-danger');
+                }
+            } catch (error) {
+                alertmensaje.textContent = "Ocurrió un error en la solicitud.";
+                alertmensaje.style.display = 'block';
+                alertmensaje.classList.add('alert-danger');
+                console.error(error);
+            }
+        });
+    }
+});

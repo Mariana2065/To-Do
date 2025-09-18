@@ -3,9 +3,15 @@
      padding: 0;
      box-sizing: border-box;
  }
-
+:root {
+  --color-celeste: #C7D6E8;
+  --color-rosado: #F0C6D8;
+  --color-morado: #DAC3E2;
+  --color-amarillo: #FCF5C1;
+}
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
  body {
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     font-family: 'Philosopher', sans-serif;
      background: #f5f7fa;
      display: flex;
      align-items: center;
@@ -177,7 +183,8 @@
      flex: 1;
  }
 
- .register-btn {
+ .register-btn,
+ .enviarEnlace {
      width: 100%;
      background: linear-gradient(135deg, #7fb3d3, #a8c8ec);
      color: white;
@@ -251,7 +258,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         overflow: hidden;
         z-index: 0;
     }
@@ -278,3 +285,64 @@
       from { opacity: 0.3; }
       to   { opacity: 1; }
     }
+    /*Link olvidaste la contraseña*/
+    #link_recuperar_contraseña {
+        margin-top: 2rem;
+        text-align: center;
+       color:#ff7eb6 ; 
+       text-decoration: none;
+    }
+/*Logo parte derecha interfaces*/
+.logo-icon-right-section img{
+    width: 14rem;
+    height: 14rem;
+    object-fit: cover;
+}
+/*Titulo de las interfaces de recuperación a la derecha*/
+.titulo-interfaz-derecha {
+    margin-top: -2rem;
+    margin-bottom: 4rem;
+    color:#91b5e0 ;
+}
+/*input email recuperacion contraseña*/
+#email_recuperacion {
+    border:none;
+    border-bottom: 2px solid var(--color-celeste);
+    width: 100%;
+}
+#email_recuperacion:focus {
+    outline: none;
+}
+.modal-content {
+  border-radius: 12px;
+  border: 2px solid #91b5e0; /* Color de borde personalizado */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: #91b5e0;
+  color: white; /* Color del texto del encabezado */
+  border-bottom: 2px solid #91b5e0; /* Color de borde inferior */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.modal-body {
+  font-family: 'Poppins', philosopher, sans-serif;
+  color: #333;
+}
+
+.modal-header .modal-title {
+  font-family: 'philosopher', sans-serif;
+  font-weight: bold;
+}
+.modal-footer .btn-secondary {
+  background-color: transparent;
+  color: #91b5e0;
+  border: 1px solid #91b5e0;
+  transition: all 0.3s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #91b5e0;
+  color: white;
+}

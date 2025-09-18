@@ -28,3 +28,35 @@ function crearEstrella() {
 for (let i = 0; i < NUM_ESTRELLAS; i++) {
     crearEstrella();
 }
+//funcionamiunto del modal 
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('formRecuperarContraseña');
+    const mensajeModal = new bootstrap.Modal(document.getElementById('mensajeModal'));
+    const modalMensaje = document.getElementById('modalMensaje');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); 
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch('enviar_enlace.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json(); 
+            modalMensaje.textContent = result.message; 
+            mensajeModal.show();
+
+        } catch (error) {
+            console.error('Error:', error);
+            modalMensaje.textContent = "Ocurrió un error al procesar tu solicitud.";
+            mensajeModal.show();
+        }
+    });
+});

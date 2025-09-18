@@ -5,6 +5,7 @@ require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
 
@@ -44,13 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Body = "Para restablecer tu contraseña, haz clic en el siguiente enlace: <a href='http://localhost/To-do/public/reset_password.php?token=$token'>Restablecer Contraseña</a>";
 
             $mail->send();
-            echo "<p>Se ha enviado un correo con instrucciones para restablecer tu contraseña.</p>";
+            echo json_encode(['success' => true, 'message' => 'Se ha enviado un correo con instrucciones para restablecer tu contraseña.']);
         } catch (Exception $e) {
-            // Manejo de errores
-            echo "<p>Error al enviar el correo. Por favor, revisa la configuración del SMTP. Error: {$mail->ErrorInfo}</p>";
+            echo json_encode(['success' => false, 'message' => "No se pudo enviar el correo. Error de Mailer: {$mail->ErrorInfo}"]);
         }
     } else {
-        echo "<p>El correo electrónico no está registrado.</p>";
+        echo json_encode(['success' => false, 'message' => 'El correo electrónico no está registrado.']);
     }
 }
 ?>

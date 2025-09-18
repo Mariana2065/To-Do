@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/../init.php';
 
@@ -27,13 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO DO - Iniciar Sesión</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-       
+
 </head>
+
 <body>
     <div class="container-login">
         <div class="left-section-login">
@@ -44,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <button class="btn-login-login">Iniciar Sesión</button>
             </div>
         </div>
-        
+
         <div class="right-section">
             <div class="logo">
                 <div class="logo-icon"><img src="../assets/css/img/Logo to-do.png" alt="Logo TO-DO"></div>
@@ -53,22 +54,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php if (!empty($error)): ?>
                 <p style="color:red; text-align:center;"><?= $error ?></p>
             <?php endif; ?>
-            
+
             <form method="post" class="form-container" id="registerForm">
                 <div class="form-group">
                     <input type="email" name="email" class="form-input login" placeholder="Email" required>
                 </div>
-                
+
                 <div class="password-row">
                     <input type="password" name="password" class="form-input login" placeholder="Contraseña" required>
                 </div>
-                
+
                 <button type="submit" class="login-btn">Iniciar Sesión</button>
             </form>
+            <a href="recuperar_contraseña.php" id="link_recuperar_contraseña">¿Olvidaste tu contraseña?</a>
+
         </div>
-        <a href="recuperar_contraseña.php">¿Olvidaste tu contraseña?</a>
     </div>
 
     <script src="../assets/script/script.js"></script>
 </body>
+
 </html>

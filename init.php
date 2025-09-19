@@ -13,3 +13,8 @@ function require_login() {
         exit();
     }
 }
+
+function redirect($url) {
+    header("Location: $url");
+    exit;
+}

@@ -3,6 +3,85 @@ if (!isset($_SESSION)) session_start();
 require_once __DIR__ . '/../init.php';
 require_login();
 
+// ==========================
+// 1. OBTENER PROYECTOS, USUARIOS Y ETIQUETAS
+// ==========================
+$stmt = $pdo->prepare("SELECT id, name FROM projects WHERE creator_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$proyectos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->query("SELECT id, name FROM users");
+$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->prepare("SELECT id, name FROM tags WHERE creator_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$etiquetas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// ==========================
+// 2. APLICAR FILTROS
+// ==========================
+$where = ["t.creator_id = ?"];
+$params = [$_SESSION['user_id']];
+
+if (!empty($_GET['q'])) {
+    $where[] = "(t.title LIKE ? OR t.description LIKE ?)";
+    $params[] = "%" . $_GET['q'] . "%";
+    $params[] = "%" . $_GET['q'] . "%";
+}
+if (!empty($_GET['proyecto_id'])) {
+    $where[] = "t.project_id = ?";
+    $params[] = $_GET['proyecto_id'];
+}
+if (!empty($_GET['assignee_id'])) {
+    $where[] = "t.assignee_id = ?";
+    $params[] = $_GET['assignee_id'];
+}
+
+if (!empty($_GET['estado'])) {
+    $where[] = "t.status = ?";
+    $params[] = $_GET['estado'];
+}
+if (!empty($_GET['prioridad'])) {
+    $where[] = "t.priority = ?";
+    $params[] = $_GET['prioridad'];
+}
+if (!empty($_GET['fecha_desde']) && !empty($_GET['fecha_hasta'])) {
+    $where[] = "t.due_date BETWEEN ? AND ?";
+    $params[] = $_GET['fecha_desde'];
+    $params[] = $_GET['fecha_hasta'];
+}
+if (!empty($_GET['tag_id'])) {
+    $where[] = "EXISTS (SELECT 1 FROM task_tags tt WHERE tt.task_id = t.id AND tt.tag_id = ?)";
+    $params[] = $_GET['tag_id'];
+}
+
+
+// ==========================
+// 3. LISTAR TAREAS FILTRADAS
+// ==========================
+$sql = "
+    SELECT t.*, p.name AS proyecto, u.name AS asignado,
+           (SELECT GROUP_CONCAT(tags.name SEPARATOR ', ')
+            FROM task_tags 
+            JOIN tags ON tags.id = task_tags.tag_id
+            WHERE task_tags.task_id = t.id) AS etiquetas
+    FROM tasks t
+    LEFT JOIN projects p ON t.project_id = p.id
+    LEFT JOIN users u ON t.assignee_id = u.id
+    WHERE " . implode(" AND ", $where) . "
+    ORDER BY t.due_date ASC
+";
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+// Obtener datos del usuario actual 
+$stmt = $pdo->prepare("SELECT name, email FROM users WHERE id = ?"); 
+$stmt->execute([$_SESSION['user_id']]); 
+$user = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+
 $stmt = $pdo->prepare("SELECT id, name, email, avatar FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -47,9 +126,9 @@ $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
                     <form method="GET" class="form-container" style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px;">
                         <input type="text" name="q" placeholder="Buscar..." class="form-input" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
 
-                        <label>Proyecto:</label>
+                        
                         <select name="proyecto_id" class="form-input">
-                            <option value="">Todos</option>
+                            <option value="">proyectos</option>
                             <?php foreach ($proyectos as $p): ?>
                                 <option value="<?= $p['id'] ?>" <?= ($_GET['proyecto_id'] ?? '') == $p['id'] ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($p['name']) ?>

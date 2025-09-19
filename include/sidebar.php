@@ -27,13 +27,13 @@ $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
             <!-- Foto de perfil -->
             <div style="margin-bottom:15px;">
                 <?php if (!empty($usuarioSidebar['avatar'])): ?>
-                    <img src="../<?= htmlspecialchars($usuarioSidebar['avatar']) ?>" 
+                    <a href="perfil.php"><img src="../<?= htmlspecialchars($usuarioSidebar['avatar']) ?>" 
                         alt="Avatar" 
-                        style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+                        style="width:80px;height:80px;border-radius:50%;object-fit:cover;"></a>
                 <?php else: ?>
-                    <img src="../assets/img/default-avatar.png" 
+                    <a href="perfil.php"><img src="../assets/img/default-avatar.png" 
                         alt="Avatar" 
-                        style="width:80px;height:80px;border-radius:50%;object-fit:cover;">
+                        style="width:80px;height:80px;border-radius:50%;object-fit:cover;"></a>
                 <?php endif; ?>
                 <p class="user-name"><?= htmlspecialchars($usuarioSidebar['name']) ?></p>
             </div>
@@ -114,7 +114,7 @@ $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
             <a href="tareas.php" class="nav-item">
                <img src="../assets/css/img/iconsTareas.png" alt="" class="icons-sidebar"> Tareas
             </a>
-            <a href="perfil.php" class="nav-item">
+            <a href="tags.php" class="nav-item">
                 <img src="../assets/css/img/iconstags.png" alt="" class="icons-sidebar">Etiquetas
             </a>
         </nav>

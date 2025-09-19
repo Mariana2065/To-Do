@@ -355,17 +355,19 @@
 
  .modal-content {
      border-radius: 12px;
-     border: 2px solid #91b5e0;
-     /* Color de borde personalizado */
+     border: 2px solid var(--color-rosa-fuerte);
      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
  }
 
  .modal-header {
-     background-color: #91b5e0;
+    display: flex;
+    flex-direction: column;
+     background-color: var(--color-rosado);
      color: white;
-     border-bottom: 2px solid #91b5e0;
+     border-bottom: 2px solid var(--color-rosa-fuerte);
      border-top-left-radius: 10px;
      border-top-right-radius: 10px;
+     width: 100%;
  }
 
  .modal-body {
@@ -496,6 +498,13 @@ background: #F0C6D8;
 background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 232, 1) 100%);     height: 100vh;
      flex: 1;
     border-radius: 15px;}
+
+.main-proyectos {
+    background: var(--color-morado);
+    flex: 1;
+    border-radius: 15px;
+    height: 100vh;
+    }
 
  .welcome-header {
     display: flex;
@@ -654,7 +663,405 @@ background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 23
          grid-template-columns: 1fr;
      }
  }
+ /*Estilos main proyectos*/
+ 
+ .page-header{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 20px;
+    margin-left: 25px;
+ }
 .icons-sidebar{
     width: 35px;
     height: 35px;
+}
+.titulos-main{
+    font-family: philosopher, sans-serif;
+    font-size: 28px;
+    color: black;  
+    text-align: center; 
+}
+.icons-titulos-main{
+    width: 40px;
+    height: 40px;
+}
+.add-project-btn{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-cremita);
+    color: black;
+    padding: 5px 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: fit-content;
+    margin-left: 25px;
+    bottom: 20px;
+}
+.add-project-icon img{
+    width: 20px;
+    height: 20px;
+}
+.project-icon{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 15px;
+}
+.project-icon h3{
+    font-family: philosopher, sans-serif;
+    font-size: 20px;
+    color: #ba70d4;  
+}
+.project-info{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.icons-lista-proyectos{
+    width: 16px;
+    height: 16px;
+}
+.descripcion-proyecto{
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+    margin-left: 3rem;
+}
+.crud-proyectos {
+    width: 20px;
+    height: 20px;
+    background: none;
+}  
+ .btn-crud-proyectos{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.project-actions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 3rem;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+.project-star-line {
+    width: 5px;
+    height: 20px;
+    background:var(--color-cremita);
+    margin-left: 10px;
+    transform: rotateY(180deg);
+}
+
+.projects-list{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+.project-item{
+    border-bottom: 2px solid #d1a8e0;
+    padding-bottom: 5px;
+  width: calc(100% - 60px);
+}
+
+
+
+
+
+
+
+
+
+.back-btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #666;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background: #f8f9fa;
+}
+
+/* Tareas del proyecto */
+.task-item {
+    background: white;
+    border-radius: 25px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #f0f0f0;
+}
+
+.task-item.completed {
+    background: #f8f9fa;
+    opacity: 0.7;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.task-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-checkbox.completed {
+    background: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.task-info h3 {
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.task-info.completed h3 {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.task-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.pending {
+    background: #ffc107;
+    color: #212529;
+}
+
+.status-badge.completed {
+    background: #28a745;
+    color: white;
+}
+
+.task-star {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ddd;
+}
+
+.task-star:hover {
+    color: #f39c12;
+}
+
+.task-star.active {
+    color: #f39c12;
+}
+
+/* Botón agregar tarea */
+.add-task-btn {
+    background: white;
+    border-radius: 25px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    border: 1px solid #f0f0f0;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.add-task-btn:hover {
+    background: #f8f9fa;
+}
+
+.add-task-icon {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #666;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+}
+
+/* Vista de Super Admin - Fondo Morado */
+.main.admin-view {
+    background: linear-gradient(135deg, #c8a2e3 0%, #b19cd9 50%, #a089d6 100%);
+}
+
+.admin-panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.admin-panel h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-btn {
+    background: linear-gradient(135deg, #8b5a96, #a569bd);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 90, 150, 0.3);
+}
+
+.notes-section {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.notes-section h4 {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.add-note-btn {
+    background: #8b5a96;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--color-cremita);
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;}
+
+.modal-header h3 {
+    color: black;
+    font-size: 18px;
+    text-align: center;
+    font-family: philosopher, sans-serif;
+    height: 30px;
+    margin-top: 25px;
+}
+
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: var(--color-rosa-fuerte);
+    color: white;
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+}
+#editForm,
+#createForm{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;   
+    text-align: center;
+}
+.form-input:focus{
+    border-color: var(--color-rosa-fuerte);
 }

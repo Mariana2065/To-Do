@@ -60,43 +60,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-//Script alertas confirmacion y error
-document.addEventListener('DOMContentLoaded', () => {
-    let form = document.getElementById('reset-form');
-    let alertmensaje = document.getElementById('alert-mensaje');
+//fin del funcionamiento del modal
 
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            let formData = new FormData(form);
-            try {
-                let response = await fetch('reset_password.php', {
-                    method: 'POST',
-                    body: formData
-                });
+//Modal proyectos
+ // La función original openCreateModal()
+function openCreateModal() {
+    document.getElementById('modal-crear-proyecto').classList.add('show');
+}
 
-                let result = await response.json();
-                alertmensaje.textContent = result.message;
-                alertmensaje.style.display = 'block';
+// Nueva función para cerrar cualquier modal de proyecto
+function closeProjectModal(modalId) {
+    document.getElementById(modalId).classList.remove('show');
+}
 
-                if (result.success) {
-                    alertmensaje.classList.remove('alert-danger');
-                    alertmensaje.classList.add('alert-success');
-                    form.reset(); // Opcional: limpiar el formulario
-                    // Opcional: redireccionar al login después de un tiempo
-                    // setTimeout(() => {
-                    //     window.location.href = 'login.php';
-                    // }, 3000); 
-                } else {
-                    alertmensaje.classList.remove('alert-success');
-                    alertmensaje.classList.add('alert-danger');
-                }
-            } catch (error) {
-                alertmensaje.textContent = "Ocurrió un error en la solicitud.";
-                alertmensaje.style.display = 'block';
-                alertmensaje.classList.add('alert-danger');
-                console.error(error);
-            }
-        });
+// La función original editProject()
+function editProject(id, nombre, descripcion) {
+    document.getElementById('id-editar-proyecto').value = id;
+    document.getElementById('nombre-editar-proyecto').value = nombre;
+    document.getElementById('descripcion-editar-proyecto').value = descripcion;
+    document.getElementById('modal-editar-proyecto').classList.add('show');
+}
+
+// Las siguientes funciones no necesitaban cambios, pero las incluyo por contexto
+function deleteProject(id) {
+    if (confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
+        window.location.href = 'proyectos.php?eliminar=' + id;
     }
-});
+}
+
+function toggleStar(element) {
+    if (element.classList.contains('active')) {
+        element.classList.remove('active');
+        element.textContent = '☆';
+    } else {
+        element.classList.add('active');
+        element.textContent = '★';
+    }
+}
+
+// Cerrar modal al hacer clic fuera (con la nueva clase)
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal-proyecto')) {
+        event.target.classList.remove('show');
+    }
+}
+//fin modal proyectos

@@ -44,6 +44,7 @@ $stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -52,45 +53,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo">
-            <img src="../assets/css/img/Logo to-do.png" alt="Logo TO-DO">
-            <div class="logo-text">TO DO</div>
-        </div>
-        
-        <div class="user">
-            <div class="user-icon">👤</div>
-            <div class="user-name"><?= htmlspecialchars($user['name']) ?></div>
-        </div>
-        
-        <div class="search">
-            <input type="text" placeholder="Buscar">
-        </div>
-        
-        <nav>
-            <a href="dashboard.php">
-                <span>🏠</span> Dashboard
-            </a>
-            <a href="proyectos.php" class="active">
-                <span>📁</span> Proyectos
-            </a>
-            <a href="tareas.php">
-                <span>✅</span> Tareas
-            </a>
-        </nav>
-        
-        <div style="margin-top: auto;">
-            <a href="logout.php" class="btn btn-danger" style="width: 100%; text-align: center; text-decoration: none;">
-                🚪 Cerrar Sesión
-            </a>
-        </div>
-    </div>
 
+  <?php include_once '../include/sidebar.php'; ?>
     <!-- Main content -->
-    <div class="main">
+    <div class="main-proyectos">
         <div class="page-header">
-            <h2><span>📁</span> Proyectos</h2>
+            <h2 class="titulos-main"><img src="../assets/css/img/iconscarpeta.png" alt="" class="icons-sidebar"> Proyectos</h2>
         </div>
 
         <!-- Lista de proyectos -->
@@ -98,33 +66,31 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <?php foreach ($proyectos as $p): ?>
                 <div class="project-item">
                     <div class="project-content">
-                        <div class="project-icon">📁</div>
+                        <div class="project-icon"><img src="../assets/css/img/destello.png" alt="" class="icons-lista-proyectos">
+                         <h3><?= htmlspecialchars($p['name']) ?></h3>
+                    </div>
                         <div class="project-info">
-                            <h3><?= htmlspecialchars($p['name']) ?></h3>
                             <?php if (!empty($p['description'])): ?>
-                                <p><?= htmlspecialchars($p['description']) ?></p>
+                                <p class="descripcion-proyecto"><?= htmlspecialchars($p['description']) ?></p>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="project-actions">
-                        <button class="project-star" onclick="toggleStar(this)">☆</button>
-                        <button class="btn btn-secondary" onclick="editProject(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>', '<?= htmlspecialchars($p['description'], ENT_QUOTES) ?>')">
-                            ✏️
+                        <button class="btn-crud-proyectos" onclick="toggleStar(this)"><img src="../assets/css/img/iconsEstrella.png" alt="" class="crud-proyectos"></button>
+                        <button class="btn-crud-proyectos" onclick="editProject(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>', '<?= htmlspecialchars($p['description'], ENT_QUOTES) ?>')">
+                            <img src="../assets/css/img/iconEditar.png" alt="" class="crud-proyectos">
                         </button>
-                        <button class="btn btn-danger" onclick="deleteProject(<?= $p['id'] ?>)">
-                            🗑️
+                        <button class="btn-crud-proyectos" onclick="deleteProject(<?= $p['id'] ?>)">
+                            <img src="../assets/css/img/iconsEliminar.png" alt="" class="crud-proyectos">
                         </button>
                     </div>
                 </div>
             <?php endforeach; ?>
+                                    <span class="project-star-line"></span>
+
         </div>
 
-        <!-- Botón agregar proyecto -->
-        <div class="add-project-btn" onclick="openCreateModal()">
-            <div class="add-project-icon">+</div>
-            <span>Agregar proyecto</span>
-        </div>
-    </div>
+       
 
     <!-- Modal para crear proyecto -->
     <div id="createModal" class="modal">
@@ -168,6 +134,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     <button type="submit" name="editar" class="btn btn-primary">Guardar Cambios</button>
                 </div>
             </form>
+        </div>
+    </div>
+     <!-- Botón agregar proyecto -->
+        <div class="add-project-btn" onclick="openCreateModal()">
+            <div class="add-project-icon">+</div>
+            <span>Agregar proyecto</span>
         </div>
     </div>
 

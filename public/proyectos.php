@@ -138,7 +138,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
      <!-- Botón agregar proyecto -->
         <div class="add-project-btn" onclick="openCreateModal()">
-            <div class="add-project-icon">+</div>
+            <div class="add-project-icon"><img src="../assets/css/img/iconsmas.png" alt=""></div>
             <span>Agregar proyecto</span>
         </div>
     </div>

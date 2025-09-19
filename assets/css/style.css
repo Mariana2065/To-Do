@@ -769,14 +769,6 @@ background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 23
   width: calc(100% - 60px);
 }
 
-
-
-
-
-
-
-
-
 .back-btn {
     background: white;
     border: 1px solid #ddd;
@@ -1186,4 +1178,84 @@ ease;
 }
 .lista-tareas-derecha strong{
     margin-right: 25px;
+}
+ .task-grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            padding: 20px;
+
+        }
+
+        .task-section {
+            background-color:var(--color-cremita);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .full-width-section {
+            grid-column: 1 / -1;
+        }
+.task-view-body{
+     font-family: 'Philosopher', sans-serif;
+     background:var(--color-rosado);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100vh;
+}
+.titulo-ver-tareas{
+    text-align: center;
+}
+.detalles-tareas-titulos{
+    font-family: 'Philosopher', sans-serif;
+    color: #ee94bb;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.descripcion-tarea{
+    color: #e2a9c1;
+}
+.input-subtareas{
+    width: 70%;
+     padding: 15px 0;
+     border: none;
+     border-bottom: 2px solid #e1e8ed;
+     background: transparent;
+     font-size: 16px;
+     color:#ee94bb ;
+     outline: none;
+     transition: all 0.3s ease;
+     font-family: 'Philosopher', sans-serif;
+     margin-top: 10px;
+}
+.input-subtareas:focus{
+    border-color: var(--color-rosa-fuerte);
+}
+.crear-subtarea-icon img{
+    width: 35px;
+    height: 35px;
+    background-color: none;
+}
+button.crear-subtarea-icon{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.icons-eliminar-subtarea {
+    width: 25px;
+    height: 25px;
+         transition: all 0.3s ease;
+    cursor: pointer;
+    margin-left: 15px;
+    }
+.checkbox-subtarea{
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background:var(--color-rosado);
+    cursor: pointer;
 }

@@ -120,14 +120,7 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
 </head>
 <body>
-<div class="container-registro">
-    <!-- Sidebar -->
-    <div class="left-section">
-        <div class="boton-registro-login-left">
-            <button class="btn-registro" onclick="location.href='dashboard.php'">⬅ Dashboard</button>
-            <button class="btn-login" onclick="location.href='logout.php'">Cerrar Sesión</button>
-        </div>
-    </div>
+
 
     <!-- Contenido -->
     <div class="right-section">

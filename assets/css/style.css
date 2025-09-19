@@ -5,7 +5,7 @@
  }
 
  :root {
-     --color-celeste: #C7D6E8;
+     --color-celeste: #a2c4ee;
      --color-rosado: #F0C6D8;
      --color-morado: #DAC3E2;
      --color-amarillo: #FCF5C1;
@@ -1064,4 +1064,29 @@ box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 5
 }
 .form-input:focus{
     border-color: var(--color-rosa-fuerte);
+
+}
+.logo-text-perfil{
+    color:#a8c8ec ;
+}
+.label-perfil{
+    color: var(--color-celeste);
+    margin-bottom: 10px;
+}
+.perfil-email{
+    margin-top:5px;
+    color:rgba(0, 0, 0, 0.596); 
+
+}
+.form-group-project{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+.form-group-project-foto{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
 }

@@ -52,22 +52,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
 <head>
     <meta charset="UTF-8">
     <title>Perfil - <?= APP_NAME ?></title>
-    <!-- <link rel="stylesheet" href="../assets/css/style.css"> -->
+     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 <div class="container-registro">
 
-    <!-- Sidebar -->
+    <!-- Sidebar
     <div class="left-section">
         <div class="boton-registro-login-left">
             <button class="btn-registro" onclick="location.href='dashboard.php'">⬅ Dashboard</button>
             <button class="btn-login" onclick="location.href='logout.php'">Cerrar Sesión</button>
         </div>
-    </div>
+    </div> -->
+    <?php include_once '../include/sidebar.php'; ?>
 
     <!-- Contenido -->
     <div class="right-section">
-        <h2 class="logo-text">👤 Mi Perfil</h2>
+        <h2 class="logo-text-perfil">Mi Perfil</h2>
 
         <?php if (!empty($_SESSION['success'])): ?>
             <p style="color:green;"><?= $_SESSION['success']; unset($_SESSION['success']); ?></p>
@@ -88,18 +89,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
 
         <!-- Formulario de actualización -->
         <form method="POST" class="form-container" enctype="multipart/form-data">
-            <div class="form-group">
-                <label>Nombre:</label>
+            <div class="form-group-project">
+                <label class="label-perfil">Nombre:</label>
                 <input type="text" name="name" class="form-input" value="<?= htmlspecialchars($usuario['name']) ?>" required>
             </div>
 
-            <div class="form-group">
-                <label>Email:</label><br>
-                <strong><?= htmlspecialchars($usuario['email']) ?></strong>
+            <div class="form-group-project">
+                <label class="label-perfil">Email:</label><br>
+                <strong class="perfil-email"><?= htmlspecialchars($usuario['email']) ?></strong>
             </div>
 
-            <div class="form-group">
-                <label>Foto de perfil:</label>
+            <div class="form-group-project-foto">
+                <label class="label-perfil">Foto de perfil:</label>
                 <input type="file" name="avatar" accept="image/*" class="form-input">
             </div>
 

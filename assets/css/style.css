@@ -410,13 +410,13 @@
 
  /* Sidebar */
  .sidebar {
-     width: 300px;
-     background: var(--color-cremita);
-     padding: 20px;
-     display: flex;
-     flex-direction: column;
-     border-right: 1px solid #ddd;
-     height: 100vh;
+    width: 300px;
+    background: var(--color-cremita);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    height: 100vh;
  }
 
  .sidebar-content{
@@ -436,6 +436,7 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    flex-direction: column;
 }
 
  .user-avatar-sidebar{
@@ -483,7 +484,7 @@
  }
 
  .sidebar nav a:hover {
-     background: linear-gradient(135deg, #a8c8ec 0%, #7fb3d3 50%);
+     background: linear-gradient(135deg, var(--color-rosado) 0%, var(--color-rosa-fuerte) 50%);
      color: white;
      transform: translateX(5px);
  }

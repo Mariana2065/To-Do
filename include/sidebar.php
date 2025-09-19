@@ -41,7 +41,7 @@ $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <div class="">
             <!-- Buscador -->
-            <div class="left-section-buscador">
+            <div class="left-section">
                 <div class="boton-registro-login-left">
                     <h2>🔎 Filtros</h2>
                     <form method="GET" class="form-container" style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px;">

@@ -121,24 +121,29 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
+    <?php include_once '../include/sidebar.php'; ?>
+
 
     <!-- Contenido -->
-    <div class="right-section">
-        <h2 class="logo-text">✅ Mis Tareas</h2>
+    <h2 class="titulo-interfaz-derecha">Mis Tareas</h2>
+    <div class="right-section" id="tareas-container">
 
         <!-- Crear tarea -->
-        <form method="POST" class="form-container">
-            <div class="form-group">
-                <input type="text" name="titulo" class="form-input" placeholder="Título de la tarea" required>
+
+         <div class="creartareas">
+        <form method="POST" class="form-container-tareas">
+            <div class="form-group-tareas">
+                <input type="text" name="titulo" class="form-input-tareas" placeholder="Título de la tarea" required>
             </div>
-            <div class="form-group">
-                <textarea name="descripcion" class="form-input" placeholder="Descripción"></textarea>
+            <div class="form-group-tareas">
+                <textarea name="descripcion" class="form-input-tareas" placeholder="Descripción"></textarea>
             </div>
 
             <!-- proyecto -->
-            <div class="form-group">
+            <div class="form-group-tareas">
                 <label>Proyecto:</label>
-                <select name="proyecto_id" class="form-input">
+                <br>
+                <select name="proyecto_id" class="form-input-tareas">
                     <option value="">(Sin proyecto)</option>
                     <?php foreach ($proyectos as $p): ?>
                         <option value="<?= $p['id'] ?>"><?= htmlspecialchars($p['name'] ?? '') ?></option>
@@ -147,9 +152,10 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <!-- Asignar usuario -->
-            <div class="form-group">
+            <div class="form-group-tareas">
                 <label>Asignar a:</label>
-                <select name="assignee_id" class="form-input">
+                <br>
+                <select name="assignee_id" class="form-input-tareas">
                     <option value="">(Sin asignar)</option>
                     <?php foreach ($usuarios as $u): ?>
                         <option value="<?= $u['id'] ?>"><?= htmlspecialchars($u['name'] ?? '') ?></option>
@@ -158,20 +164,22 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             
             <!-- Etiquetas -->
-            <div class="form-group">
+            <div class="form-group-tareas">
                 <label>Etiquetas:</label><br>
                 <?php foreach ($etiquetas as $tag): ?>
                     <label>
                         <input type="checkbox" name="tags[]" value="<?= $tag['id'] ?>"> 
                         <?= htmlspecialchars($tag['name'] ?? '') ?>
                     </label>
+                    <br>
                 <?php endforeach; ?>
             </div>
 
             <!-- Prioridad -->
-            <div class="form-group">
+            <div class="form-group-tareas">
                 <label>Prioridad:</label>
-                <select name="prioridad" class="form-input">
+                <br>
+                <select name="prioridad" class="form-input-tareas">
                     <option value="low">Baja</option>
                     <option value="medium" selected>Media</option>
                     <option value="high">Alta</option>
@@ -180,9 +188,10 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <!-- Estado -->
-            <div class="form-group">
+            <div class="form-group-tareas">
                 <label>Estado:</label>
-                <select name="estado" class="form-input">
+                <br>
+                <select name="estado" class="form-input-tareas">
                     <option value="todo">Por hacer</option>
                     <option value="in_progress">En progreso</option>
                     <option value="done">Hecha</option>
@@ -190,21 +199,24 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <!-- Fecha de vencimiento -->
-            <div class="form-group">
+            <div class="form-group-tareas">
                 <label>Fecha de vencimiento:</label>
-                <input type="date" name="due_date" class="form-input">
+                <br>
+                <input type="date" name="due_date" class="form-input-tareas">
             </div>
 
-            <button type="submit" name="crear" class="register-btn">Crear Tarea</button>
+            <button type="submit" name="crear" class="btn-crear-tarea">Crear Tarea</button>
         </form>
+        </div>
+        <span class="linea-separacion"></span>
 
         <!-- Lista de tareas -->
-        <h3 class="logo-text" style="margin-top:20px;">📋 Lista de Tareas</h3>
+         <div class="listatare">
+        <h3 class="titulo-derecha-tareas" style="margin-top:20px;">Lista de Tareas</h3>
         <ul style="list-style:none; padding:0;">
             <?php foreach ($tareas as $t): ?>
-                <li style="margin:10px 0; padding:10px; border-bottom:1px solid #ccc;">
+                <li class="lista-tareas-derecha">
                     <strong><?= htmlspecialchars($t['title'] ?? '') ?></strong>
-                    (<?= htmlspecialchars($t['status'] ?? '') ?>, <?= htmlspecialchars($t['priority'] ?? '') ?>)
 
                 
                     <?php if ($t['total_subtareas'] > 0): ?>
@@ -217,12 +229,13 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
 
                     <!-- Acciones -->
-                    <a href="view_task.php?id=<?= $t['id'] ?>" class="btn-login">Ver Detalles</a>
-                    <a href="tareas.php?editar=<?= $t['id'] ?>" class="btn-registro">Editar</a>
-                    <a href="tareas.php?eliminar=<?= $t['id'] ?>" class="btn-registro" onclick="return confirm('¿Eliminar tarea?')">Eliminar</a>
+                    <a href="view_task.php?id=<?= $t['id'] ?>" ><img src="../assets/css/img/ver-detalles.gif" alt=""></a>
+                    <a href="tareas.php?editar=<?= $t['id'] ?>" ><img src="../assets/css/img/iconEditar.png" alt="" class="crud-proyectos"></a>
+                    <a href="tareas.php?eliminar=<?= $t['id'] ?>"  onclick="return confirm('¿Eliminar tarea?')"><img src="../assets/css/img/iconsEliminar.png" alt="" class="crud-proyectos"></a>
                 </li>
             <?php endforeach; ?>
         </ul>
+        </div>
 
         <!-- Formulario de edición -->
         <?php if (isset($_GET['editar'])): 
@@ -238,17 +251,18 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($edit):
         ?>
         <h3 class="logo-text" style="margin-top:20px;">✏ Editar Tarea</h3>
-        <form method="POST" class="form-container">
+        <form method="POST" class="form-container-tareas">
             <input type="hidden" name="id" value="<?= $edit['id'] ?>">
             <div class="form-group">
-                <input type="text" name="titulo" class="form-input" value="<?= htmlspecialchars($edit['title'] ?? '') ?>" required>
+                <input type="text" name="titulo" class="form-input-tareas" value="<?= htmlspecialchars($edit['title'] ?? '') ?>" required>
             </div>
             <div class="form-group">
-                <textarea name="descripcion" class="form-input"><?= htmlspecialchars($edit['description'] ?? '') ?></textarea>
+                <textarea name="descripcion" class="form-input-tareas"><?= htmlspecialchars($edit['description'] ?? '') ?></textarea>
             </div>
 
             <!-- Editar proyecto -->
             <label>Proyecto:</label>
+            <br>
             <select name="proyecto_id" class="form-input">
                 <option value="">(Sin proyecto)</option>
                 <?php foreach ($proyectos as $p): ?>
@@ -261,7 +275,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Asignar usuario -->
             <div class="form-group">
                 <label>Asignar a:</label>
-                <select name="assignee_id" class="form-input">
+                <br>
+                <select name="assignee_id" class="form-input-tareas">
                     <option value="">(Sin asignar)</option>
                     <?php foreach ($usuarios as $u): ?>
                         <option value="<?= $u['id'] ?>" <?= ($edit['assignee_id'] == $u['id']) ? 'selected' : '' ?>>
@@ -273,7 +288,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Editar etiquetas -->
             <div class="form-group">
-                <label>Etiquetas:</label><br>
+                <label>Etiquetas:</label>
+                <br>
                 <?php foreach ($etiquetas as $tag): ?>
                     <label>
                         <input type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" 
@@ -285,7 +301,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Editar prioridad -->
             <label>Prioridad:</label>
-            <select name="prioridad" class="form-input">
+            <br>
+            <select name="prioridad" class="form-input-tareas">
                 <option value="low" <?= ($edit['priority']=="low"?"selected":"") ?>>Baja</option>
                 <option value="medium" <?= ($edit['priority']=="medium"?"selected":"") ?>>Media</option>
                 <option value="high" <?= ($edit['priority']=="high"?"selected":"") ?>>Alta</option>
@@ -294,7 +311,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Editar estado -->
             <label>Estado:</label>
-            <select name="estado" class="form-input">
+            <br>
+            <select name="estado" class="form-input-tareas">
                 <option value="todo" <?= ($edit['status']=="todo"?"selected":"") ?>>Por hacer</option>
                 <option value="in_progress" <?= ($edit['status']=="in_progress"?"selected":"") ?>>En progreso</option>
                 <option value="done" <?= ($edit['status']=="done"?"selected":"") ?>>Hecha</option>
@@ -304,7 +322,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Editar fecha de vencimiento -->
             <label>Fecha de vencimiento:</label>
-            <input type="date" name="due_date" class="form-input" value="<?= htmlspecialchars($edit['due_date'] ?? '') ?>">
+            <br>
+            <input type="date" name="due_date" class="form-input-tareas" value="<?= htmlspecialchars($edit['due_date'] ?? '') ?>">
 
             <button type="submit" name="editar" class="login-btn">Guardar Cambios</button>
         </form>

@@ -120,67 +120,92 @@ $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <div class="">
             <!-- Buscador -->
-            <div class="left-section">
+            <div class="sidebar-search">
                 <div class="boton-registro-login-left">
-                    <h2>🔎 Filtros</h2>
                     <form method="GET" class="form-container" style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px;">
                         <input type="text" name="q" placeholder="Buscar..." class="form-input" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
 
+                        <!-- Select principal -->
                         
-                        <select name="proyecto_id" class="form-input">
-                            <option value="">proyectos</option>
-                            <?php foreach ($proyectos as $p): ?>
-                                <option value="<?= $p['id'] ?>" <?= ($_GET['proyecto_id'] ?? '') == $p['id'] ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($p['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
+                        <select id="main-filter" class="form-input">
+                            <option value="">Filtro...</option>
+                            <option value="proyecto">Proyecto</option>
+                            <option value="responsable">Responsable</option>
+                            <option value="etiqueta">Etiqueta</option>
+                            <option value="estado">Estado</option>
+                            <option value="prioridad">Prioridad</option>
+                            <option value="fecha">Fecha vencimiento</option>
                         </select>
 
-                        <label>Responsable:</label>
-                        <select name="assignee_id" class="form-input">
-                            <option value="">Todos</option>
-                            <?php foreach ($usuarios as $u): ?>
-                                <option value="<?= $u['id'] ?>" <?= ($_GET['assignee_id'] ?? '') == $u['id'] ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($u['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <!-- Subfiltros ocultos -->
+                        <div id="filter-proyecto" class="sub-filter" style="display:none;">
+                            <label>Proyecto:</label>
+                            <select name="proyecto_id" class="form-input">
+                                <option value="">Todos los proyectos</option>
+                                <?php foreach ($proyectos as $p): ?>
+                                    <option value="<?= $p['id'] ?>" <?= ($_GET['proyecto_id'] ?? '') == $p['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($p['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-                        <label>Etiqueta:</label>
-                        <select name="tag_id" class="form-input">
-                            <option value="">Todas</option>
-                            <?php foreach ($etiquetas as $tag): ?>
-                                <option value="<?= $tag['id'] ?>" <?= ($_GET['tag_id'] ?? '') == $tag['id'] ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($tag['name']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <div id="filter-responsable" class="sub-filter" style="display:none;">
+                            <label>Responsable:</label>
+                            <select name="assignee_id" class="form-input">
+                                <option value="">Todos los usuarios</option>
+                                <?php foreach ($usuarios as $u): ?>
+                                    <option value="<?= $u['id'] ?>" <?= ($_GET['assignee_id'] ?? '') == $u['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($u['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-                        <label>Estado:</label>
-                        <select name="estado" class="form-input">
-                            <option value="">Todos</option>
-                            <option value="todo" <?= ($_GET['estado'] ?? '') == "todo" ? "selected" : "" ?>>Por hacer</option>
-                            <option value="in_progress" <?= ($_GET['estado'] ?? '') == "in_progress" ? "selected" : "" ?>>En progreso</option>
-                            <option value="done" <?= ($_GET['estado'] ?? '') == "done" ? "selected" : "" ?>>Hecha</option>
-                            <option value="archived" <?= ($_GET['estado'] ?? '') == "archived" ? "selected" : "" ?>>Archivada</option>
-                        </select>
+                        <div id="filter-etiqueta" class="sub-filter" style="display:none;">
+                            <label>Etiqueta:</label>
+                            <select name="tag_id" class="form-input">
+                                <option value="">Todas las etiquetas</option>
+                                <?php foreach ($etiquetas as $tag): ?>
+                                    <option value="<?= $tag['id'] ?>" <?= ($_GET['tag_id'] ?? '') == $tag['id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($tag['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-                        <label>Prioridad:</label>
-                        <select name="prioridad" class="form-input">
-                            <option value="">Todas</option>
-                            <option value="low" <?= ($_GET['prioridad'] ?? '') == "low" ? "selected" : "" ?>>Baja</option>
-                            <option value="medium" <?= ($_GET['prioridad'] ?? '') == "medium" ? "selected" : "" ?>>Media</option>
-                            <option value="high" <?= ($_GET['prioridad'] ?? '') == "high" ? "selected" : "" ?>>Alta</option>
-                            <option value="urgent" <?= ($_GET['prioridad'] ?? '') == "urgent" ? "selected" : "" ?>>Urgente</option>
-                        </select>
+                        <div id="filter-estado" class="sub-filter" style="display:none;">
+                            <label>Estado:</label>
+                            <select name="estado" class="form-input">
+                                <option value="">Todos los estados</option>
+                                <option value="todo" <?= ($_GET['estado'] ?? '') == "todo" ? "selected" : "" ?>>Por hacer</option>
+                                <option value="in_progress" <?= ($_GET['estado'] ?? '') == "in_progress" ? "selected" : "" ?>>En progreso</option>
+                                <option value="done" <?= ($_GET['estado'] ?? '') == "done" ? "selected" : "" ?>>Hecha</option>
+                                <option value="archived" <?= ($_GET['estado'] ?? '') == "archived" ? "selected" : "" ?>>Archivada</option>
+                            </select>
+                        </div>
 
-                        <label>Fecha venc.:</label>
-                        <input type="date" name="fecha_desde" class="form-input" value="<?= htmlspecialchars($_GET['fecha_desde'] ?? '') ?>">
-                        <input type="date" name="fecha_hasta" class="form-input" value="<?= htmlspecialchars($_GET['fecha_hasta'] ?? '') ?>">
+                        <div id="filter-prioridad" class="sub-filter" style="display:none;">
+                            <label>Prioridad:</label>
+                            <select name="prioridad" class="form-input">
+                                <option value="">Todas las prioridades</option>
+                                <option value="low" <?= ($_GET['prioridad'] ?? '') == "low" ? "selected" : "" ?>>Baja</option>
+                                <option value="medium" <?= ($_GET['prioridad'] ?? '') == "medium" ? "selected" : "" ?>>Media</option>
+                                <option value="high" <?= ($_GET['prioridad'] ?? '') == "high" ? "selected" : "" ?>>Alta</option>
+                                <option value="urgent" <?= ($_GET['prioridad'] ?? '') == "urgent" ? "selected" : "" ?>>Urgente</option>
+                            </select>
+                        </div>
 
-                        <button type="submit" class="btn-login" style="margin-top:10px;">Filtrar</button>
-                        <a href="dashboard.php" class="btn-registro" style="margin-top:10px;">Limpiar</a>
+                        <div id="filter-fecha" class="sub-filter" style="display:none;">
+                            <label>Fecha vencimiento:</label>
+                            <input type="date" name="fecha_desde" class="form-input" value="<?= htmlspecialchars($_GET['fecha_desde'] ?? '') ?>">
+                            <input type="date" name="fecha_hasta" class="form-input" value="<?= htmlspecialchars($_GET['fecha_hasta'] ?? '') ?>">
+                        </div>
+
+                        <button type="submit" class="logout-btn" style="margin-top:10px;">Filtrar</button>
+                        <a href="dashboard.php" class="logout-btn" style="margin-top:10px;">Limpiar</a>
                     </form>
+
                 </div>
             </div>
 
@@ -201,3 +226,38 @@ $usuarioSidebar = $stmt->fetch(PDO::FETCH_ASSOC);
         <a href="logout.php" class="logout-btn"> Cerrar sesión</a>
     </div>
     </div>
+
+    <script>
+        const mainFilter = document.getElementById('main-filter');
+        const subFilters = document.querySelectorAll('.sub-filter');
+
+        mainFilter.addEventListener('change', function () {
+            // Oculta todos los subfiltros
+            subFilters.forEach(div => div.style.display = 'none');
+
+            // Muestra el seleccionado
+            const selected = mainFilter.value;
+            const target = document.getElementById('filter-' + selected);
+            if (target) target.style.display = 'block';
+        });
+
+        // Mostrar automáticamente si ya hay un filtro seleccionado en GET
+        window.addEventListener('DOMContentLoaded', () => {
+            const preSelected = [
+                { key: 'proyecto_id', value: 'proyecto' },
+                { key: 'assignee_id', value: 'responsable' },
+                { key: 'tag_id', value: 'etiqueta' },
+                { key: 'estado', value: 'estado' },
+                { key: 'prioridad', value: 'prioridad' },
+                { key: 'fecha_desde', value: 'fecha' }
+            ];
+
+            for (const pair of preSelected) {
+                if (new URLSearchParams(window.location.search).has(pair.key)) {
+                    mainFilter.value = pair.value;
+                    document.getElementById('filter-' + pair.value).style.display = 'block';
+                    break;
+                }
+            }
+        });
+    </script>

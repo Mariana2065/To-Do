@@ -219,14 +219,14 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <strong><?= htmlspecialchars($t['title'] ?? '') ?></strong>
 
                 
-                    <?php if ($t['total_subtareas'] > 0): ?>
+                    <!-- <?php if ($t['total_subtareas'] > 0): ?>
                         <?php 
                             $color = ($t['subtareas_completadas'] == $t['total_subtareas']) ? "green" : "red";
                         ?>
                         <span style="color:<?= $color ?>; font-size:14px;">
                             (<?= $t['subtareas_completadas'] ?>/<?= $t['total_subtareas'] ?> subtareas)
                         </span>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
 
                     <!-- Acciones -->
                     <a href="view_task.php?id=<?= $t['id'] ?>" ><img src="../assets/css/img/ver-detalles.gif" alt=""></a>

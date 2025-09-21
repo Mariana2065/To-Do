@@ -44,26 +44,21 @@ $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Etiquetas - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-<div class="container-registro">
+<body class="body-ver-tags">
     <!-- Sidebar -->
-    <div class="left-section">
-        <div class="boton-registro-login-left">
-            <button class="btn-registro" onclick="location.href='dashboard.php'">⬅ Dashboard</button>
-            <button class="btn-login" onclick="location.href='logout.php'">Cerrar Sesión</button>
-        </div>
-    </div>
+        <?php include_once '../include/sidebar.php'; ?>
+
 
     <!-- Contenido -->
     <div class="right-section">
-        <h2 class="logo-text">🏷 Mis Etiquetas</h2>
+        <h2 class="titulos-tags">Mis Etiquetas</h2>
 
         <!-- Crear etiqueta -->
-        <form method="POST" class="form-container">
-            <div class="form-group">
-                <input type="text" name="nombre" class="form-input" placeholder="Nombre de la etiqueta" required>
+        <form method="POST" class="form-container-tags">
+            <div class="form-group-tags">
+                <input type="text" name="nombre" class="form-input-tags" placeholder="Nombre de la etiqueta" required>
             </div>
-            <button type="submit" name="crear" class="register-btn">Crear Etiqueta</button>
+            <button type="submit" name="crear" class="crear-tag">Crear Etiqueta</button>
         </form>
 
         <h3 class="logo-text" style="margin-top:20px;">📋 Lista de Etiquetas</h3>
@@ -86,10 +81,10 @@ $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if ($edit):
         ?>
         <h3 class="logo-text" style="margin-top:20px;">✏ Editar Etiqueta</h3>
-        <form method="POST" class="form-container">
+        <form method="POST" class="form-container-tags">
             <input type="hidden" name="id" value="<?= $edit['id'] ?>">
             <div class="form-group">
-                <input type="text" name="nombre" class="form-input" value="<?= htmlspecialchars($edit['name']) ?>" required>
+                <input type="text" name="nombre" class="form-input-tags" value="<?= htmlspecialchars($edit['name']) ?>" required>
             </div>
             <button type="submit" name="editar" class="login-btn">Guardar Cambios</button>
         </form>

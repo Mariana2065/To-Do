@@ -223,6 +223,7 @@ $adjuntos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach;
                 } else {
                     echo "<p>No hay adjuntos.</p>";
+                    echo "<br>";
                 } ?>
                 </ul>
                 <form method="POST" enctype="multipart/form-data" action="upload_attachment.php">

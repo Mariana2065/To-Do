@@ -417,6 +417,7 @@
     flex-direction: column;
     border-right: 1px solid #ddd;
     height: 100vh;
+    position: static;
  }
 
  .sidebar-content{
@@ -427,7 +428,6 @@
     border-radius: 25px;
     padding: 25px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    overflow: auto;
  }
 .user{
     text-align: center;
@@ -1185,7 +1185,6 @@ ease;
             grid-template-columns: 1fr 1fr; 
             gap: 20px; 
             padding: 20px;
-
         }
 
         .task-section {
@@ -1205,6 +1204,15 @@ ease;
      align-items: center;
      justify-content: center;
      height: 100vh;
+}
+.body-ver-tags{
+       font-family: 'Philosopher', sans-serif;
+     background:var(--color-amarillo);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100vh;
+
 }
 .titulo-ver-tareas{
     text-align: center;
@@ -1259,4 +1267,55 @@ button.crear-subtarea-icon{
     border-radius: 50%;
     background:var(--color-rosado);
     cursor: pointer;
+}
+.titulos-tags{
+    font-family: 'Philosopher', sans-serif;
+    color:#f8c982;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    margin-bottom: 4rem;
+}
+.form-input-tags{
+    width: 50%;
+     padding: 15px 0;
+     border: none;
+     border-bottom: 2px solid #f3ec9c;
+     background: transparent;
+     font-size: 16px;
+     color:black ;
+     outline: none;
+     transition: all 0.3s ease;
+     font-family: 'Philosopher', sans-serif;
+     margin-top: 10px;
+     text-align: center ;
+}
+.form-input-tags:focus{
+    border-color: #f8c982;
+}
+.form-group-tags{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.crear-tag{
+    width: 50%;
+    background: linear-gradient(135deg, #f3ec9c, #f8c982);
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+.form-container-tags{
+    display: flex;
+     flex-direction: column;
+     width: 90%;
+     margin-top: -3rem;
+     align-items: center;
 }

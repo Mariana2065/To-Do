@@ -77,7 +77,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="project-actions">
                         <button class="btn-crud-proyectos" onclick="toggleStar(this)"><img src="../assets/css/img/iconsEstrella.png" alt="" class="crud-proyectos"></button>
-                        <button class="btn-crud-proyectos" onclick="editProject(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>', '<?= htmlspecialchars($p['description'], ENT_QUOTES) ?>')">
+                        <button class="btn-crud-proyectos" onclick="editProject(<?= $p['id'] ?>, '<?= htmlspecialchars($p['name'], ENT_QUOTES) ?>', '<?= htmlspecialchars($p['description'] ?? '', ENT_QUOTES) ?>')">
                             <img src="../assets/css/img/iconEditar.png" alt="" class="crud-proyectos">
                         </button>
                         <button class="btn-crud-proyectos" onclick="deleteProject(<?= $p['id'] ?>)">

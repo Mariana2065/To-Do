@@ -9,8 +9,8 @@
      --color-rosado: #F0C6D8;
      --color-morado: #ecd4f3;
      --color-amarillo: #FCF5C1;
-     --color-cremita:#F4F5F0;
-     --color-rosa-fuerte:#ff7eb6;
+     --color-cremita: #F4F5F0;
+     --color-rosa-fuerte: #ff7eb6;
  }
 
  @import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap');
@@ -212,8 +212,7 @@
  }
 
  .login-btn,
- #btn-actualizar-contraseña
-  {
+ #btn-actualizar-contraseña {
      width: 100%;
      background: #F0C6D8;
      color: white;
@@ -331,8 +330,8 @@
 
  /*Titulo de las interfaces de recuperación a la derecha*/
  .titulo-interfaz-derecha {
-    margin-top: -30rem;
-    margin-left:2rem;
+     margin-top: -30rem;
+     margin-left: 2rem;
      color: #91b5e0;
  }
 
@@ -360,8 +359,8 @@
  }
 
  .modal-header {
-    display: flex;
-    flex-direction: column;
+     display: flex;
+     flex-direction: column;
      background-color: var(--color-rosado);
      color: white;
      border-bottom: 2px solid var(--color-rosa-fuerte);
@@ -410,45 +409,46 @@
 
  /* Sidebar */
  .sidebar {
-    width: 300px;
-    background: var(--color-cremita);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #ddd;
-    height: 100vh;
-    position: static;
+     width: 300px;
+     background: var(--color-cremita);
+     padding: 20px;
+     display: flex;
+     flex-direction: column;
+     border-right: 1px solid #ddd;
+     height: 100vh;
+     position: static;
  }
 
- .sidebar-content{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.205);
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+ .sidebar-content {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     background: rgba(255, 255, 255, 0.205);
+     border-radius: 25px;
+     padding: 25px;
+     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
  }
-.user{
-    text-align: center;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    flex-direction: column;
-}
 
- .user-avatar-sidebar{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 5px;
+ .user {
+     text-align: center;
+     margin-bottom: 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 15px;
+     flex-direction: column;
+ }
+
+ .user-avatar-sidebar {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     object-fit: cover;
+     margin-bottom: 5px;
  }
 
  .sidebar .user .user-name {
-    font-family: philosopher, sans-serif;
+     font-family: philosopher, sans-serif;
      font-weight: 600;
      color: black;
      font-size: 20px;
@@ -496,22 +496,24 @@
 
  /* Main content */
  .main {
-background: #F0C6D8;
-background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 232, 1) 100%);     height: 100vh;
+     background: #F0C6D8;
+     background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 232, 1) 100%);
+     height: 100vh;
      flex: 1;
-    border-radius: 15px;}
+     border-radius: 15px;
+ }
 
-.main-proyectos {
-    background: var(--color-morado);
-    flex: 1;
-    border-radius: 15px;
-    height: 100vh;
-    }
+ .main-proyectos {
+     background: var(--color-morado);
+     flex: 1;
+     border-radius: 15px;
+     height: 100vh;
+ }
 
  .welcome-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
      margin-bottom: 30px;
      text-align: center;
      margin-top: 200px;
@@ -528,10 +530,12 @@ background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 23
      color: #7f8c8d;
      font-size: 16px;
  }
-.welcome-header img{
-    width: 250px;
-    height: 250px;
-}
+
+ .welcome-header img {
+     width: 250px;
+     height: 250px;
+ }
+
  .dashboard-grid {
      display: grid;
      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -628,7 +632,7 @@ background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 23
  }
 
  .logout-btn {
-     background:var(--color-rosa-fuerte);
+     background: var(--color-rosa-fuerte);
      color: white;
      border: none;
      padding: 10px 20px;
@@ -665,464 +669,493 @@ background: radial-gradient(circle, rgba(240, 198, 216, 1) 0%, rgba(199, 214, 23
          grid-template-columns: 1fr;
      }
  }
+
  /*Estilos main proyectos*/
- 
- .page-header{
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    margin-top: 20px;
-    margin-left: 25px;
+
+ .page-header {
+     display: flex;
+     align-items: center;
+     gap: 25px;
+     margin-top: 20px;
+     margin-left: 25px;
  }
-.icons-sidebar{
-    width: 35px;
-    height: 35px;
-}
-.titulos-main{
-    font-family: philosopher, sans-serif;
-    font-size: 28px;
-    color: black;  
-    text-align: center; 
-}
-.icons-titulos-main{
-    width: 40px;
-    height: 40px;
-}
-.add-project-btn{
-    position: absolute;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--color-cremita);
-    color: black;
-    padding: 5px 10px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: fit-content;
-    margin-left: 25px;
-    bottom: 20px;
-}
-.add-project-icon img{
-    width: 20px;
-    height: 20px;
-}
-.project-icon{
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: 15px;
-}
-.project-icon h3{
-    font-family: philosopher, sans-serif;
-    font-size: 20px;
-    color: #ba70d4;  
-}
-.project-info{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.icons-lista-proyectos{
-    width: 16px;
-    height: 16px;
-}
-.descripcion-proyecto{
-    font-size: 12px;
-    color: #555;
-    margin-top: 5px;
-    margin-left: 3rem;
-}
-.crud-proyectos {
-    width: 20px;
-    height: 20px;
-    background: none;
-}  
- .btn-crud-proyectos{
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-.project-actions{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: 3rem;
-    margin-top: 10px;
-    margin-bottom: 25px;
-}
-.project-star-line {
-    width: 5px;
-    height: 20px;
-    background:var(--color-cremita);
-    margin-left: 10px;
-    transform: rotateY(180deg);
-}
 
-.projects-list{
-    margin-left: 30px;
-    margin-top: 20px;
-}
-.project-item{
-    border-bottom: 2px solid #d1a8e0;
-    padding-bottom: 5px;
-  width: calc(100% - 60px);
-}
+ .icons-sidebar {
+     width: 35px;
+     height: 35px;
+ }
 
-.back-btn {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 12px;
-    color: #666;
-    text-decoration: none;
-}
+ .titulos-main {
+     font-family: philosopher, sans-serif;
+     font-size: 28px;
+     color: black;
+     text-align: center;
+ }
 
-.back-btn:hover {
-    background: #f8f9fa;
-}
+ .icons-titulos-main {
+     width: 40px;
+     height: 40px;
+ }
 
-/* Tareas del proyecto */
-.task-item {
-    background: white;
-    border-radius: 25px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #f0f0f0;
-}
+ .add-project-btn {
+     position: absolute;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     background: var(--color-cremita);
+     color: black;
+     padding: 5px 10px;
+     border-radius: 25px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     width: fit-content;
+     margin-left: 25px;
+     bottom: 20px;
+ }
 
-.task-item.completed {
-    background: #f8f9fa;
-    opacity: 0.7;
-}
+ .add-project-icon img {
+     width: 20px;
+     height: 20px;
+ }
 
-.task-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-}
+ .project-icon {
+     margin-top: 15px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     margin-left: 15px;
+ }
 
-.task-checkbox {
-    width: 18px;
-    height: 18px;
-    border: 2px solid #ddd;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+ .project-icon h3 {
+     font-family: philosopher, sans-serif;
+     font-size: 20px;
+     color: #ba70d4;
+ }
 
-.task-checkbox.completed {
-    background: #28a745;
-    border-color: #28a745;
-    color: white;
-}
+ .project-info {
+     display: flex;
+     align-items: center;
+     gap: 15px;
+ }
 
-.task-info h3 {
-    color: #333;
-    font-size: 14px;
-    font-weight: 500;
-}
+ .icons-lista-proyectos {
+     width: 16px;
+     height: 16px;
+ }
 
-.task-info.completed h3 {
-    text-decoration: line-through;
-    color: #999;
-}
+ .descripcion-proyecto {
+     font-size: 12px;
+     color: #555;
+     margin-top: 5px;
+     margin-left: 3rem;
+ }
 
-.task-status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+ .crud-proyectos {
+     width: 20px;
+     height: 20px;
+     background: none;
+ }
 
-.status-badge {
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-}
+ .btn-crud-proyectos {
+     background: none;
+     border: none;
+     cursor: pointer;
+ }
 
-.status-badge.pending {
-    background: #ffc107;
-    color: #212529;
-}
+ .project-actions {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     margin-left: 3rem;
+     margin-top: 10px;
+     margin-bottom: 25px;
+ }
 
-.status-badge.completed {
-    background: #28a745;
-    color: white;
-}
+ .project-star-line {
+     width: 5px;
+     height: 20px;
+     background: var(--color-cremita);
+     margin-left: 10px;
+     transform: rotateY(180deg);
+ }
 
-.task-star {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #ddd;
-}
+ .projects-list {
+     margin-left: 30px;
+     margin-top: 20px;
+ }
 
-.task-star:hover {
-    color: #f39c12;
-}
+ .project-item {
+     border-bottom: 2px solid #d1a8e0;
+     padding-bottom: 5px;
+     width: calc(100% - 60px);
+ }
 
-.task-star.active {
-    color: #f39c12;
-}
+ .back-btn {
+     background: white;
+     border: 1px solid #ddd;
+     border-radius: 6px;
+     padding: 8px 12px;
+     cursor: pointer;
+     font-size: 12px;
+     color: #666;
+     text-decoration: none;
+ }
 
-/* Botón agregar tarea */
-.add-task-btn {
-    background: white;
-    border-radius: 25px;
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    border: 1px solid #f0f0f0;
-    color: #666;
-    text-decoration: none;
-    font-size: 14px;
-    margin-top: 20px;
-}
+ .back-btn:hover {
+     background: #f8f9fa;
+ }
 
-.add-task-btn:hover {
-    background: #f8f9fa;
-}
+ /* Tareas del proyecto */
+ .task-item {
+     background: white;
+     border-radius: 25px;
+     padding: 15px 20px;
+     margin-bottom: 15px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     border: 1px solid #f0f0f0;
+ }
 
-.add-task-icon {
-    width: 18px;
-    height: 18px;
-    border: 2px solid #666;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #666;
-    font-weight: bold;
-}
+ .task-item.completed {
+     background: #f8f9fa;
+     opacity: 0.7;
+ }
 
-/* Vista de Super Admin - Fondo Morado */
-.main.admin-view {
-    background: linear-gradient(135deg, #c8a2e3 0%, #b19cd9 50%, #a089d6 100%);
-}
+ .task-content {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     flex: 1;
+ }
 
-.admin-panel {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 20px;
-    backdrop-filter: blur(10px);
-}
+ .task-checkbox {
+     width: 18px;
+     height: 18px;
+     border: 2px solid #ddd;
+     border-radius: 50%;
+     background: white;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
 
-.admin-panel h3 {
-    color: #333;
-    font-size: 18px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+ .task-checkbox.completed {
+     background: #28a745;
+     border-color: #28a745;
+     color: white;
+ }
 
-.admin-actions {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
+ .task-info h3 {
+     color: #333;
+     font-size: 14px;
+     font-weight: 500;
+ }
 
-.admin-btn {
-    background: linear-gradient(135deg, #8b5a96, #a569bd);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-}
+ .task-info.completed h3 {
+     text-decoration: line-through;
+     color: #999;
+ }
 
-.admin-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(139, 90, 150, 0.3);
-}
+ .task-status {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
 
-.notes-section {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 20px;
-    margin-top: 20px;
-}
+ .status-badge {
+     padding: 4px 12px;
+     border-radius: 12px;
+     font-size: 12px;
+     font-weight: 500;
+ }
 
-.notes-section h4 {
-    color: #333;
-    font-size: 16px;
-    margin-bottom: 15px;
-}
+ .status-badge.pending {
+     background: #ffc107;
+     color: #212529;
+ }
 
-.add-note-btn {
-    background: #8b5a96;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    width: 100%;
-}
+ .status-badge.completed {
+     background: #28a745;
+     color: white;
+ }
 
-/* Modal */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
+ .task-star {
+     border: none;
+     background: none;
+     cursor: pointer;
+     font-size: 16px;
+     color: #ddd;
+ }
 
-.modal.show {
-    display: flex;
-}
+ .task-star:hover {
+     color: #f39c12;
+ }
 
-.modal-content {
-    background: var(--color-cremita);
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
-box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;}
+ .task-star.active {
+     color: #f39c12;
+ }
 
-.modal-header h3 {
-    color: black;
-    font-size: 18px;
-    text-align: center;
-    font-family: philosopher, sans-serif;
-    height: 30px;
-    margin-top: 25px;
-}
+ /* Botón agregar tarea */
+ .add-task-btn {
+     background: white;
+     border-radius: 25px;
+     padding: 15px 20px;
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     cursor: pointer;
+     border: 1px solid #f0f0f0;
+     color: #666;
+     text-decoration: none;
+     font-size: 14px;
+     margin-top: 20px;
+ }
+
+ .add-task-btn:hover {
+     background: #f8f9fa;
+ }
+
+ .add-task-icon {
+     width: 18px;
+     height: 18px;
+     border: 2px solid #666;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 14px;
+     color: #666;
+     font-weight: bold;
+ }
+
+ /* Vista de Super Admin - Fondo Morado */
+ .main.admin-view {
+     background: linear-gradient(135deg, #c8a2e3 0%, #b19cd9 50%, #a089d6 100%);
+ }
+
+ .admin-panel {
+     background: rgba(255, 255, 255, 0.95);
+     border-radius: 20px;
+     padding: 25px;
+     margin-bottom: 20px;
+     backdrop-filter: blur(10px);
+ }
+
+ .admin-panel h3 {
+     color: #333;
+     font-size: 18px;
+     margin-bottom: 20px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
+
+ .admin-actions {
+     display: flex;
+     gap: 15px;
+     flex-wrap: wrap;
+ }
+
+ .admin-btn {
+     background: linear-gradient(135deg, #8b5a96, #a569bd);
+     color: white;
+     border: none;
+     padding: 12px 20px;
+     border-radius: 10px;
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: 500;
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     transition: all 0.3s ease;
+ }
+
+ .admin-btn:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 5px 15px rgba(139, 90, 150, 0.3);
+ }
+
+ .notes-section {
+     background: rgba(255, 255, 255, 0.9);
+     border-radius: 15px;
+     padding: 20px;
+     margin-top: 20px;
+ }
+
+ .notes-section h4 {
+     color: #333;
+     font-size: 16px;
+     margin-bottom: 15px;
+ }
+
+ .add-note-btn {
+     background: #8b5a96;
+     color: white;
+     border: none;
+     padding: 10px 15px;
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 14px;
+     width: 100%;
+ }
+
+ /* Modal */
+ .modal {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.5);
+     display: none;
+     align-items: center;
+     justify-content: center;
+     z-index: 1000;
+ }
+
+ .modal.show {
+     display: flex;
+ }
+
+ .modal-content {
+     background: var(--color-cremita);
+     padding: 25px;
+     border-radius: 15px;
+     width: 90%;
+     max-width: 400px;
+     box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+ }
+
+ .modal-header h3 {
+     color: black;
+     font-size: 18px;
+     text-align: center;
+     font-family: philosopher, sans-serif;
+     height: 30px;
+     margin-top: 25px;
+ }
 
 
-.btn {
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-}
+ .btn {
+     padding: 10px 20px;
+     border-radius: 6px;
+     border: none;
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: 500;
+ }
 
-.btn-primary {
-    background: var(--color-rosa-fuerte);
-    color: white;
-}
+ .btn-primary {
+     background: var(--color-rosa-fuerte);
+     color: white;
+ }
 
-.btn-secondary {
-    background: #f8f9fa;
-    color: #666;
-    border: 1px solid #ddd;
-}
+ .btn-secondary {
+     background: #f8f9fa;
+     color: #666;
+     border: 1px solid #ddd;
+ }
 
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #999;
-}
-#editForm,
-#createForm{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;   
-    text-align: center;
-}
-.form-input:focus{
-    border-color: var(--color-rosa-fuerte);
+ .close-btn {
+     position: absolute;
+     top: 15px;
+     right: 20px;
+     background: none;
+     border: none;
+     font-size: 20px;
+     cursor: pointer;
+     color: #999;
+ }
 
-}
-.logo-text-perfil{
-    color:#a8c8ec ;
-}
-.label-perfil{
-    color: var(--color-celeste);
-    margin-bottom: 10px;
-}
-.perfil-email{
-    margin-top:5px;
-    color:rgba(0, 0, 0, 0.596); 
+ #editForm,
+ #createForm {
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+     margin-top: 15px;
+     text-align: center;
+ }
 
-}
-.form-group-project{
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
+ .form-input:focus {
+     border-color: var(--color-rosa-fuerte);
 
-}
-.form-group-project-foto{
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-}
-.left-section-buscador{
-    flex: 1;
-    background: var(--color-cremita);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-    align-items: center;
-    padding-top: 20px;
-    border-radius: 25px;
-}
-#tareas-container{
- display: grid;
-grid-template-columns: repeat(2, 1fr);
-grid-template-rows: 1fr;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-width: 100vw;
-height: 100%;
-padding: 10px;
-margin-top: 0;
-margin-left: 3rem;
+ }
 
-}
-.creartareas{
-    grid-area: 1 / 1 / 2 / 2;
-}
+ .logo-text-perfil {
+     color: #a8c8ec;
+     margin-bottom: 25px;
+ }
 
-.listatare{
-    grid-area: 1 / 2 / 2 / 3;
-}
+ .label-perfil {
+     color: var(--color-celeste);
+     margin-bottom: 10px;
+ }
 
-.form-container-tareas{
-    width: 80vh;
-    overflow: hidden;
-}
-.form-input-tareas {
-    width: 50%;
+ .perfil-email {
+     margin-top: 5px;
+     color: rgba(0, 0, 0, 0.596);
+
+ }
+
+ .form-group-project {
+     margin-bottom: 20px;
+     display: flex;
+     flex-direction: column;
+
+ }
+
+ .form-group-project-foto {
+     margin-bottom: 20px;
+     display: flex;
+     flex-direction: column;
+     margin-top: 30px;
+ }
+
+ .left-section-buscador {
+     flex: 1;
+     background: var(--color-cremita);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-start;
+     position: relative;
+     align-items: center;
+     padding-top: 20px;
+     border-radius: 25px;
+ }
+
+ #tareas-container {
+     display: grid;
+     grid-template-columns: repeat(2, 1fr);
+     grid-template-rows: 1fr;
+     grid-column-gap: 0px;
+     grid-row-gap: 0px;
+     width: 100vw;
+     height: 100%;
+     padding: 10px;
+     margin-top: 0;
+     margin-left: 3rem;
+
+ }
+
+ .creartareas {
+     grid-area: 1 / 1 / 2 / 2;
+ }
+
+ .listatare {
+     grid-area: 1 / 2 / 2 / 3;
+ }
+
+ .form-container-tareas {
+     width: 80vh;
+     overflow: hidden;
+ }
+
+ .form-input-tareas {
+     width: 50%;
      padding: 15px 0;
      border: none;
      border-bottom: 2px solid #e1e8ed;
@@ -1132,190 +1165,251 @@ margin-left: 3rem;
      outline: none;
      transition: all 0.3s ease;
      font-family: 'Philosopher', sans-serif;
-}
-.form-group-tareas{
-    margin-top: 10px;
-}
-.form-group-tareas label{
-    color: var(--color-celeste);
-    gap: 20px;
-}
-.btn-crear-tarea{
+ }
 
-    width: 50%;
-    background: linear-gradient(135deg, #7fb3d3, #a8c8ec);
-    color: white;
-    border: none;
-    padding: 13px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s 
-ease;
-    margin-top: 15px;
-    margin-left: 3rem;
-}
-.linea-separacion{
-    background-color: var(--color-celeste);
-    width: 3px;
-    height: 80%;
-    position: absolute;
-    margin-left: 30%;
-}
-.titulo-derecha-tareas{
+ .form-group-tareas {
+     margin-top: 10px;
+ }
+
+ .form-group-tareas label {
+     color: var(--color-celeste);
+     gap: 20px;
+ }
+
+ .btn-crear-tarea {
+
+     width: 50%;
+     background: linear-gradient(135deg, #7fb3d3, #a8c8ec);
+     color: white;
+     border: none;
+     padding: 13px;
+     border-radius: 25px;
+     font-size: 16px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     margin-top: 15px;
+     margin-left: 3rem;
+ }
+
+ .linea-separacion {
+     background-color: var(--color-celeste);
+     width: 3px;
+     height: 80%;
+     position: absolute;
+     margin-left: 30%;
+ }
+
+ .titulo-derecha-tareas {
      font-family: 'Philosopher', sans-serif;
-    color: var(--color-celeste);
-    text-align: start;
-    font-size: 2rem;
-}
-.lista-tareas-derecha{
- border-bottom: 2px solid var(--color-celeste);
- width: 80%;
- text-align: center;
- margin-top: 35px;
- justify-items: center;
- margin-left: 2rem;
-}
-.lista-tareas-derecha strong{
-    margin-right: 25px;
-}
+     color: var(--color-celeste);
+     text-align: start;
+     font-size: 2rem;
+ }
+
+ .lista-tareas-derecha {
+     border-bottom: 2px solid var(--color-celeste);
+     width: 80%;
+     text-align: center;
+     margin-top: 35px;
+     justify-items: center;
+     margin-left: 2rem;
+ }
+
+ .lista-tareas-derecha strong {
+     margin-right: 25px;
+ }
+
  .task-grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px; 
-            padding: 20px;
-        }
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 20px;
+     padding: 20px;
+ }
 
-        .task-section {
-            background-color:var(--color-cremita);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+ .task-section {
+     background-color: var(--color-cremita);
+     padding: 20px;
+     border-radius: 8px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
 
-        .full-width-section {
-            grid-column: 1 / -1;
-        }
-.task-view-body{
+ .full-width-section {
+     grid-column: 1 / -1;
+ }
+
+ .task-view-body {
      font-family: 'Philosopher', sans-serif;
-     background:var(--color-rosado);
+     background: var(--color-rosado);
      display: flex;
      align-items: center;
      justify-content: center;
      height: 100vh;
-}
-.body-ver-tags{
-       font-family: 'Philosopher', sans-serif;
-     background:var(--color-amarillo);
+ }
+
+ .body-ver-tags {
+     font-family: 'Philosopher', sans-serif;
+     background: var(--color-amarillo);
      display: flex;
      align-items: center;
      justify-content: center;
      height: 100vh;
 
-}
-.titulo-ver-tareas{
-    text-align: center;
-}
-.detalles-tareas-titulos{
-    font-family: 'Philosopher', sans-serif;
-    color: #ee94bb;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-.descripcion-tarea{
-    color: #e2a9c1;
-}
-.input-subtareas{
-    width: 70%;
+ }
+
+ .titulo-ver-tareas {
+     text-align: center;
+ }
+
+ .detalles-tareas-titulos {
+     font-family: 'Philosopher', sans-serif;
+     color: #ee94bb;
+     text-align: center;
+     font-size: 2rem;
+     margin-bottom: 20px;
+ }
+
+ .descripcion-tarea {
+     color: #e2a9c1;
+ }
+
+ .input-subtareas {
+     width: 70%;
      padding: 15px 0;
      border: none;
      border-bottom: 2px solid #e1e8ed;
      background: transparent;
      font-size: 16px;
-     color:#ee94bb ;
+     color: #ee94bb;
      outline: none;
      transition: all 0.3s ease;
      font-family: 'Philosopher', sans-serif;
      margin-top: 10px;
-}
-.input-subtareas:focus{
-    border-color: var(--color-rosa-fuerte);
-}
-.crear-subtarea-icon img{
-    width: 35px;
-    height: 35px;
-    background-color: none;
-}
-button.crear-subtarea-icon{
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-.icons-eliminar-subtarea {
-    width: 25px;
-    height: 25px;
-         transition: all 0.3s ease;
-    cursor: pointer;
-    margin-left: 15px;
-    }
-.checkbox-subtarea{
-    width: 18px;
-    height: 18px;
-    border: 2px solid #ddd;
-    border-radius: 50%;
-    background:var(--color-rosado);
-    cursor: pointer;
-}
-.titulos-tags{
-    font-family: 'Philosopher', sans-serif;
-    color:#f8c982;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    margin-bottom: 4rem;
-}
-.form-input-tags{
-    width: 50%;
+ }
+
+ .input-subtareas:focus {
+     border-color: var(--color-rosa-fuerte);
+ }
+
+ .crear-subtarea-icon img {
+     width: 35px;
+     height: 35px;
+     background-color: none;
+ }
+
+ button.crear-subtarea-icon {
+     background: none;
+     border: none;
+     cursor: pointer;
+ }
+
+ .icons-eliminar-subtarea {
+     width: 25px;
+     height: 25px;
+     transition: all 0.3s ease;
+     cursor: pointer;
+     margin-left: 15px;
+ }
+
+ .checkbox-subtarea {
+     width: 18px;
+     height: 18px;
+     border: 2px solid #ddd;
+     border-radius: 50%;
+     background: var(--color-rosado);
+     cursor: pointer;
+ }
+
+ .titulos-tags {
+     font-family: 'Philosopher', sans-serif;
+     color: #f8c982;
+     text-align: center;
+     font-size: 2rem;
+     margin-bottom: 20px;
+     margin-bottom: 4rem;
+ }
+
+ .form-input-tags {
+     width: 50%;
      padding: 15px 0;
      border: none;
      border-bottom: 2px solid #f3ec9c;
      background: transparent;
      font-size: 16px;
-     color:black ;
+     color: black;
      outline: none;
      transition: all 0.3s ease;
      font-family: 'Philosopher', sans-serif;
      margin-top: 10px;
-     text-align: center ;
-}
-.form-input-tags:focus{
-    border-color: #f8c982;
-}
-.form-group-tags{
+     text-align: center;
+ }
+
+ .form-input-tags:focus {
+     border-color: #f8c982;
+ }
+
+ .form-group-tags {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+ }
+
+ .crear-tag {
+     width: 50%;
+     background: linear-gradient(135deg, #f3ec9c, #f8c982);
+     color: white;
+     border: none;
+     padding: 13px;
+     border-radius: 25px;
+     font-size: 16px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     margin-top: 15px;
+ }
+
+ .form-container-tags {
+     display: flex;
+     flex-direction: column;
+     width: 90%;
+     margin-top: -3rem;
+     align-items: center;
+ }
+
+ #file-upload {
+     display: none;
+ }
+
+ #btn-selec-file {
+     display: flex;
+     background-color: var(--color-celeste);
+     width: 15%;
+     color: white;
+     height: 45px;
+     border-radius: 25px;
+     cursor: pointer;
+     text-align: center;
+     align-items: center;
+     justify-content: center;
+     font-family: 'Philosopher', sans-serif;
+
+ }
+ .btn-acualizar-avatar{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-.crear-tag{
-    width: 50%;
-    background: linear-gradient(135deg, #f3ec9c, #f8c982);
+    justify-content: center;
+ }
+ .btn-actualizar{
+    width: 35%;
+    background: linear-gradient(135deg, #7fb3d3, #a8c8ec);
     color: white;
     border: none;
-    padding: 13px;
+    padding: 15px;
     border-radius: 25px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 15px;
-}
-.form-container-tags{
-    display: flex;
-     flex-direction: column;
-     width: 90%;
-     margin-top: -3rem;
-     align-items: center;
-}
+    margin-top: 30px;
+    justify-content: center;
+ }

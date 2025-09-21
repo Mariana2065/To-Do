@@ -100,11 +100,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
             </div>
 
             <div class="form-group-project-foto">
-                <label class="label-perfil">Foto de perfil:</label>
-                <input type="file" name="avatar" accept="image/*" class="form-input">
+                <label class="label-perfil" id="btn-selec-file" for="file-upload">Subir Foto</label>
+                <input type="file" name="avatar" accept="image/*" class="form-input" id="file-upload">
             </div>
+                <div class="btn-acualizar-avatar">
+            <button type="submit" name="actualizar" class="btn-actualizar">Actualizar Perfil</button>
 
-            <button type="submit" name="actualizar" class="register-btn">Actualizar Perfil</button>
+                </div>
         </form>
     </div>
 </div>

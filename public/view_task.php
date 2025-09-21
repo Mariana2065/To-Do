@@ -118,6 +118,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['subir_adjunto'])) {
 $stmt = $pdo->prepare("SELECT * FROM attachments WHERE task_id = ?");
 $stmt->execute([$id]);
 $adjuntos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Traducciones para prioridad
+$prioridades = [
+    'low' => 'Baja',
+    'medium' => 'Media',
+    'high' => 'Alta',
+    'urgent' => 'Urgente'
+];
+
+// Traducciones para estado
+$estados = [
+    'todo' => 'Por hacer',
+    'in_progress' => 'En progreso',
+    'done' => 'Completada'
+];
 ?>
 
 <!DOCTYPE html>
@@ -146,9 +161,9 @@ $adjuntos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <br>
                 <p><strong class="descripcion-tarea">Etiquetas:</strong> <?= htmlspecialchars($task['etiquetas'] ?? '(Sin etiquetas)') ?></p>
                 <br>
-                <p><strong class="descripcion-tarea">Prioridad:</strong> <?= htmlspecialchars($task['priority']) ?></p>
+                <p><strong class="descripcion-tarea">Prioridad:</strong> <?= $prioridades[$task['priority']] ?? '(No definida)' ?></p>                
                 <br>
-                <p><strong class="descripcion-tarea">Estado:</strong> <?= htmlspecialchars($task['status']) ?></p>
+                <p><strong class="descripcion-tarea">Estado:</strong> <?= $estados[$task['status']] ?? '(No definida)' ?></p>
                 <br>
                 <p><strong class="descripcion-tarea">Fecha límite:</strong> <?= $task['due_date'] ?: '(No definida)' ?></p>
                 <br>

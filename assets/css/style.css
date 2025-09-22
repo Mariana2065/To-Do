@@ -1413,3 +1413,228 @@
     margin-top: 30px;
     justify-content: center;
  }
+ /*Estilos del buscador*/
+ .main-buscador{
+    background: var(--color-rosado);
+     flex: 1;
+     border-radius: 15px;
+     height: 100vh;
+     flex-wrap: wrap;
+     overflow: scroll;
+     display: flex;
+     justify-content: center;
+ }
+ .form-container-buscador,
+ .resultados-busquedad{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-cremita);
+    width: 50vw;
+    height: 67vh;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    border-radius: 25px;
+    align-items:center ;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+ }
+
+.btn-filtarYLimpiar,
+.btn-filtarYLimpiar a {
+    width: 50%;
+    background: var(--color-rosa-fuerte);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s 
+ease;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: auto;
+    display: block;
+    text-align: center;
+}
+.sub-filter{
+    width: 60%;
+    display: flex;
+}
+#input-buscador,
+#main-filter
+{
+    width: 60%;
+    padding: 15px 0;
+    border: none;
+    border-bottom: 2px solid #e1e8ed;
+    background: transparent;
+    font-size: 16px;
+    color: #2c3e50;
+    outline: none;
+    transition: all 0.3s 
+ease;
+margin-top: 10px;
+margin-bottom: 5px;
+}
+ #input-buscador:focus,
+#main-filter:focus {
+    border-color: var(--color-rosa-fuerte)
+}
+
+
+/*RESULTADOS BUSQUEDAD */
+/* Contenedor principal de la sección de resultados */
+.seccion-resultados-busqueda {
+    background-color: #f7f9fb;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título de la sección */
+.titulo-resultados {
+    font-size: 28px;
+    font-weight: 700;
+    color: #34495e;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Estilos de la lista de tareas */
+.lista-resultados-tareas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilos para cada "tarjeta" de tarea */
+.tarjeta-tarea-resultado {
+    background-color: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-tarea-resultado:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos del encabezado de cada tarjeta (título y meta-información) */
+.encabezado-tarea-resultado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* Estilos para el enlace del título de la tarea */
+.enlace-tarea-titulo {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: var(--color-rosa-fuerte);
+    text-decoration: none;
+    transition: color 0.2s;
+    flex-grow: 1; /* Permite que ocupe el espacio restante */
+    margin-right: 15px; /* Espacio entre el título y el meta */
+}
+
+.enlace-tarea-titulo:hover {
+    color: #2980b9;
+}
+
+/* Contenedor de estado, prioridad y proyecto */
+.meta-tarea-resultado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estilos para las etiquetas de estado y prioridad */
+.estado-tarea-badge, .prioridad-tarea-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+
+.prioridad-tarea-badge.baja {
+  background-color: #7f8c8d; /* Gris para baja */
+  color: #fff;
+}
+/* Estilos para el listado de etiquetas */
+.etiquetas-tarea-listado {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #555;
+}
+
+.icono-info-pequeno {
+    width: 16px;
+    margin-right: 5px;
+}
+.estado-tarea-badge, .prioridad-tarea-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #fff; 
+    text-transform: uppercase;
+}
+
+/* Colores para los estados de tarea */
+.estado-tarea-badge.por-hacer {
+    background-color: #f39c12; /* Naranja para "Por hacer" */
+    color: #fff;
+}
+
+.estado-tarea-badge.en-progreso {
+    background-color: #3498db; /* Azul para "En progreso" */
+    color: #fff;
+}
+
+.estado-tarea-badge.completada {
+    background-color: #2ecc71; /* Verde para "Hecha" */
+    color: #fff;
+}
+
+.estado-tarea-badge.archivada {
+    background-color: #95a5a6; /* Gris para "Archivada" */
+    color: #fff;
+}
+
+/* Colores para las prioridades */
+.prioridad-tarea-badge.alta {
+  background-color: #f1c40f; /* Naranja/Amarillo */
+  color: #fff;
+}
+.prioridad-tarea-badge.media {
+  background-color: #3498db; /* Azul */
+  color: #fff;
+}
+.prioridad-tarea-badge.urgente {
+  background-color: #e74c3c; /* Rojo */
+  color: #fff;
+}
+.proyecto-tarea-info {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    display: flex;
+    align-items: center;
+}
+.icono-info {
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}

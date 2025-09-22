@@ -115,16 +115,16 @@ $estados = [
 <body>
 
     <?php include_once '../include/sidebar.php'; ?>
-    <div class="main-proyectos">
+    <div class="main-buscador">
         <!-- Buscador -->
         <div class="projects-list">
             <div class="boton-registro-login-left">
-                <form method="GET" class="form-container" style="background:rgba(255,255,255,0.1); padding:10px; border-radius:10px;">
-                    <input type="text" name="q" placeholder="Buscar..." class="form-input" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+                <form method="GET" class="form-container-buscador">
+                    <input type="text" name="q" placeholder="Buscar..." id="input-buscador" class="form-input" id="input-buscador"  value=  "<?= htmlspecialchars($_GET['q'] ?? '') ?>">
 
                     <!-- Select principal -->
                     
-                    <select id="main-filter" class="form-input">
+                    <select id="main-filter" id="input-buscador" >
                         <option value="">Filtro...</option>
                         <option value="proyecto">Proyecto</option>
                         <option value="responsable">Responsable</option>
@@ -135,9 +135,10 @@ $estados = [
                     </select>
 
                     <!-- Subfiltros ocultos -->
-                    <div id="filter-proyecto" class="sub-filter" style="display:none;">
-                        <label>Proyecto:</label>
-                        <select name="proyecto_id" class="form-input">
+                    <div id="filter-proyecto" class="sub-filter" style="display:none; margin-top:15px;">
+                        <label class="descripcion-tarea">Proyecto:</label>
+                        <br>
+                        <select name="proyecto_id" id="input-buscador"id="input-buscador"   class="form-input">
                             <option value="">Todos los proyectos</option>
                             <?php foreach ($proyectos as $p): ?>
                                 <option value="<?= $p['id'] ?>" <?= ($_GET['proyecto_id'] ?? '') == $p['id'] ? 'selected' : '' ?>>
@@ -147,9 +148,10 @@ $estados = [
                         </select>
                     </div>
 
-                    <div id="filter-responsable" class="sub-filter" style="display:none;">
-                        <label>Responsable:</label>
-                        <select name="assignee_id" class="form-input">
+                    <div id="filter-responsable" class="sub-filter" style="display:none; margin-top:15px;">
+                        <label class="descripcion-tarea">Responsable:</label>
+                        <br>
+                        <select name="assignee_id" id="input-buscador" id="input-buscador" class="form-input">
                             <option value="">Todos los usuarios</option>
                             <?php foreach ($usuarios as $u): ?>
                                 <option value="<?= $u['id'] ?>" <?= ($_GET['assignee_id'] ?? '') == $u['id'] ? 'selected' : '' ?>>
@@ -159,9 +161,10 @@ $estados = [
                         </select>
                     </div>
 
-                    <div id="filter-etiqueta" class="sub-filter" style="display:none;">
-                        <label>Etiqueta:</label>
-                        <select name="tag_id" class="form-input">
+                    <div id="filter-etiqueta" class="sub-filter" style="display:none; margin-top:15px;">
+                        <label class="descripcion-tarea">Etiqueta:</label>
+                        <br>
+                        <select name="tag_id" id="input-buscador" id="input-buscador"  class="form-input">
                             <option value="">Todas las etiquetas</option>
                             <?php foreach ($etiquetas as $tag): ?>
                                 <option value="<?= $tag['id'] ?>" <?= ($_GET['tag_id'] ?? '') == $tag['id'] ? 'selected' : '' ?>>
@@ -171,9 +174,10 @@ $estados = [
                         </select>
                     </div>
 
-                    <div id="filter-estado" class="sub-filter" style="display:none;">
-                        <label>Estado:</label>
-                        <select name="estado" class="form-input">
+                    <div id="filter-estado" class="sub-filter" style="display:none; margin-top:15px;">
+                        <label class="descripcion-tarea">Estado:</label>
+                        <br>
+                        <select name="estado"id="input-buscador"  id="input-buscador"  class="form-input">
                             <option value="">Todos los estados</option>
                             <option value="todo" <?= ($_GET['estado'] ?? '') == "todo" ? "selected" : "" ?>>Por hacer</option>
                             <option value="in_progress" <?= ($_GET['estado'] ?? '') == "in_progress" ? "selected" : "" ?>>En progreso</option>
@@ -182,9 +186,10 @@ $estados = [
                         </select>
                     </div>
 
-                    <div id="filter-prioridad" class="sub-filter" style="display:none;">
-                        <label>Prioridad:</label>
-                        <select name="prioridad" class="form-input">
+                    <div id="filter-prioridad" class="sub-filter" style="display:none; margin-top:15px;">
+                        <label class="descripcion-tarea">Prioridad:</label>
+                        <br>
+                        <select name="prioridad" id="input-buscador" id="input-buscador" class="form-input">
                             <option value="">Todas las prioridades</option>
                             <option value="low" <?= ($_GET['prioridad'] ?? '') == "low" ? "selected" : "" ?>>Baja</option>
                             <option value="medium" <?= ($_GET['prioridad'] ?? '') == "medium" ? "selected" : "" ?>>Media</option>
@@ -193,44 +198,63 @@ $estados = [
                         </select>
                     </div>
 
-                    <div id="filter-fecha" class="sub-filter" style="display:none;">
-                        <label>Fecha vencimiento:</label>
-                        <input type="date" name="fecha_desde" class="form-input" value="<?= htmlspecialchars($_GET['fecha_desde'] ?? '') ?>">
-                        <input type="date" name="fecha_hasta" class="form-input" value="<?= htmlspecialchars($_GET['fecha_hasta'] ?? '') ?>">
+                    <div id="filter-fecha" class="sub-filter" style="display:none; margin-top:15px;">
+                        <label class="descripcion-tarea">Fecha vencimiento:</label>
+                        <br>
+                        <input type="date" name="fecha_desde" id="input-buscador" class="form-input" value="<?= htmlspecialchars($_GET['fecha_desde'] ?? '') ?>">
+                        <input type="date" name="fecha_hasta" id="input-buscador" class="form-input" value="<?= htmlspecialchars($_GET['fecha_hasta'] ?? '') ?>">
                     </div>
 
-                    <button type="submit" class="logout-btn" style="margin-top:10px;">Filtrar</button>
-                    <a href="buscar.php" class="logout-btn" style="margin-top:10px;">Limpiar</a>
+                    <button type="submit" class="btn-filtarYLimpiar" style="margin-top:25px;">Filtrar</button>
+                    <a href="buscar.php" class="btn-filtarYLimpiar" style="margin-top:15px; margin-bottom:25px;">Limpiar</a>
                 </form>
             </div>
         </div>  
-
-        <div>
-            <h3 class="logo-text" style="margin-top:20px;">📋 Tareas Filtradas</h3>
-            <ul style="list-style:none; padding:0;">
-                <?php foreach ($tareas as $t): ?>
-                    <li style="margin:10px 0; padding:10px; border-bottom:1px solid #ccc;">
-                        <a href="view_task.php?id=<?= $t['id'] ?>" style="text-decoration:none; color:blue; font-weight:bold;">
-                            <?= htmlspecialchars($t['title'] ?? '') ?>
-                        </a>
-                        (<?= $estados[$t['status'] ?? ''] ?>, <?= $prioridades[$t['priority'] ?? ''] ?>)
-
-                        <?php if (!empty($t['proyecto'])): ?>
-                            [<img src="../assets/css/img/iconscarpeta.png" style="width: 25px;"> <?= htmlspecialchars($t['proyecto']) ?>]
-                        <?php endif; ?>
-
-                        <?php if (!empty($t['asignado'])): ?>
-                            [<img src="../assets/css/img/iconperfil.png" style="width: 25px;"> <?= htmlspecialchars($t['asignado']) ?>]
-                        <?php endif; ?>
-
-                        <?php if (!empty($t['etiquetas'])): ?>
-                            <br><small><img src="../assets/css/img/iconstags.png" style="width: 15px;"> <?= htmlspecialchars($t['etiquetas']) ?></small>
-                        <?php endif; ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+<div class="seccion-resultados-busqueda">
+    <h3 class="titulo-resultados">Resultados de la búsqueda</h3>
+    <ul class="lista-resultados-tareas">
+        <?php foreach ($tareas as $t): ?>
+          <li class="tarjeta-tarea-resultado">
+    <div class="encabezado-tarea-resultado">
+        <a href="view_task.php?id=<?= $t['id'] ?>" class="enlace-tarea-titulo">
+            <?= htmlspecialchars($t['title'] ?? '') ?>
+        </a>
+       <div class="meta-tarea-resultado">
+    <span class="estado-tarea-badge <?= str_replace(' ', '-', strtolower($estados[$t['status'] ?? ''])) ?>">
+    <?= $estados[$t['status'] ?? ''] ?>
+</span>
+    <span class="prioridad-tarea-badge <?= strtolower($prioridades[$t['priority'] ?? '']) ?>">
+        <?= $prioridades[$t['priority'] ?? ''] ?>
+    </span>
+    
+    <?php if (!empty($t['proyecto'])): ?>
+       <span class="proyecto-tarea-info">
+    <img src="../assets/css/img/iconscarpeta.png" alt="Icono de proyecto" class="icono-info">
+    <?= htmlspecialchars($t['proyecto']) ?>
+</span>
+    <?php endif; ?>
+</div>
     </div>
+
+    <?php if (!empty($t['asignado'])): ?>
+        <div class="detalles-tarea-inferior">
+            <span class="asignado-a-usuario">
+                <img src="../assets/css/img/iconperfil.png" alt="Icono de perfil" class="icono-info">
+                <?= htmlspecialchars($t['asignado']) ?>
+            </span>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($t['etiquetas'])): ?>
+        <div class="etiquetas-tarea-listado">
+            <img src="../assets/css/img/iconstags.png" alt="Icono de etiquetas" class="icono-info-pequeno">
+            <small><?= htmlspecialchars($t['etiquetas']) ?></small>
+        </div>
+    <?php endif; ?>
+</li>
+        <?php endforeach; ?>
+    </ul>
+</div>
 
     <script>
         const mainFilter = document.getElementById('main-filter');

@@ -1545,7 +1545,7 @@ margin-bottom: 5px;
 }
 
 .enlace-tarea-titulo:hover {
-    color: #2980b9;
+    color: var(--color-rosado);
 }
 
 /* Contenedor de estado, prioridad y proyecto */

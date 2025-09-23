@@ -2325,10 +2325,16 @@ flex-wrap: wrap;
 justify-content: center;
 margin-bottom: 30px;
 }
+.btn-filtey-clean{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
 .btn-filtarYLimpiar,
 .btn-filtarYLimpiar a {
-    width: 50%;
+    width: 20%;
     background: var(--color-rosa-fuerte);
     color: white;
     border: none;
@@ -2348,13 +2354,13 @@ font-size: 14px;
 }
 #input-buscador,
 #main-filter {
-    width: 60%;
+    width: 20%;
     padding: 15px 0;
     border: none;
     border-bottom: 2px solid #e1e8ed;
     background: transparent;
     font-size: 16px;
-    color: #2c3e50;
+    color: var(--color-cremita);
     outline: none;
     transition: all 0.3s ease;
     margin-top: 10px;
@@ -2363,7 +2369,7 @@ font-size: 14px;
 
 #input-buscador:focus,
 #main-filter:focus {
-    border-color: var(--color-rosa-fuerte);
+    border-color: var(--color-rosa-suave);
 }
 
 /*RESULTADOS BUSQUEDAD */

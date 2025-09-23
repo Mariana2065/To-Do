@@ -204,9 +204,10 @@ $estados = [
                         <input type="date" name="fecha_desde" id="input-buscador" class="form-input" value="<?= htmlspecialchars($_GET['fecha_desde'] ?? '') ?>">
                         <input type="date" name="fecha_hasta" id="input-buscador" class="form-input" value="<?= htmlspecialchars($_GET['fecha_hasta'] ?? '') ?>">
                     </div>
-
-                    <button type="submit" class="btn-filtarYLimpiar" style="margin-top:25px;">Filtrar</button>
-                    <a href="buscar.php" class="btn-filtarYLimpiar" style="margin-top:15px; margin-bottom:25px;">Limpiar</a>
+                                <div class="btn-filtey-clean">
+                    <button type="submit" class="btn-filtarYLimpiar" >Filtrar</button>
+                    <a href="buscar.php" class="btn-filtarYLimpiar">Limpiar</a>
+                    </div>
                 </form>
             </div>
         </div>  

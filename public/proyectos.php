@@ -34,6 +34,34 @@ if (isset($_GET['eliminar'])) {
     exit;
 }
 
+// AÑADIR COLABORADOR
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['add_project_collaborator'])) {
+    $project_id = $_POST['project_id'];
+    $user_id = $_POST['user_id'];
+    $role = $_POST['role'];
+
+    $stmt = $pdo->prepare("INSERT INTO project_users (project_id, user_id, role) VALUES (?, ?, ?)");
+    $stmt->execute([$project_id, $user_id, $role]);
+
+    header("Location: proyectos.php");
+    exit;
+}
+
+// ==========================
+// 5. QUITAR COLABORADOR
+// ==========================
+if (isset($_GET['remove_user'])) {
+    $project_id = $_GET['project_id'];
+    $user_id = $_GET['remove_user'];
+
+    $stmt = $pdo->prepare("DELETE FROM project_users WHERE project_id = ? AND user_id = ?");
+    $stmt->execute([$project_id, $user_id]);
+
+    header("Location: proyectos.php");
+    exit;
+}
+
+
 // LISTAR
 $stmt = $pdo->prepare("SELECT * FROM projects WHERE creator_id = ?");
 $stmt->execute([$_SESSION['user_id']]);
@@ -43,6 +71,12 @@ $proyectos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ==========================
+// 7. LISTAR USUARIOS DISPONIBLES
+// ==========================
+$usuarios = $pdo->query("SELECT id, name FROM users")->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -61,6 +95,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <h2 class="titulos-main"><img src="../assets/css/img/iconscarpeta.png" alt="" class="icons-sidebar"> Proyectos</h2>
         </div>
 
+
+
         <!-- Lista de proyectos -->
         <div class="projects-list">
             <?php foreach ($proyectos as $p): ?>
@@ -68,12 +104,54 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="project-content">
                         <div class="project-icon"><img src="../assets/css/img/destello.png" alt="" class="icons-lista-proyectos">
                          <h3><?= htmlspecialchars($p['name']) ?></h3>
-                    </div>
+                        </div>
                         <div class="project-info">
                             <?php if (!empty($p['description'])): ?>
                                 <p class="descripcion-proyecto"><?= htmlspecialchars($p['description']) ?></p>
                             <?php endif; ?>
                         </div>
+
+                        <!-- Colaboradores -->
+                        <h4>👥 Colaboradores</h4>
+                        <?php
+                            $stmt = $pdo->prepare("
+                                SELECT u.id, u.name, pu.role 
+                                FROM project_users pu
+                                JOIN users u ON pu.user_id = u.id
+                                WHERE pu.project_id = ?
+                            ");
+                            $stmt->execute([$p['id']]);
+                            $colaboradores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+                        <ul>
+                            <?php foreach ($colaboradores as $c): ?>
+                                <li>
+                                    <?= htmlspecialchars($c['name']) ?> (<?= $c['role'] ?>)
+                                    <a href="proyectos.php?project_id=<?= $p['id'] ?>&remove_user=<?= $c['id'] ?>" 
+                                    onclick="return confirm('¿Quitar colaborador?')">❌</a>
+                                </li>
+                            <?php endforeach; ?>
+                            <?php if (!$colaboradores): ?>
+                                <li>No hay colaboradores.</li>
+                            <?php endif; ?>
+                        </ul>
+
+                        <!-- Añadir colaborador -->
+                        <form method="POST" style="margin-top:10px;">
+                            <input type="hidden" name="project_id" value="<?= $p['id'] ?>">
+                            <select name="user_id">
+                                <?php foreach ($usuarios as $u): ?>
+                                    <option value="<?= $u['id'] ?>"><?= htmlspecialchars($u['name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <select name="role">
+                                <option value="viewer">Solo lectura</option>
+                                <option value="editor">Editor</option>
+                            </select>
+                            <button type="submit" name="add_project_collaborator">➕ Añadir</button>
+                        </form>
+                        
+
                     </div>
                     <div class="project-actions">
                         <button class="btn-crud-proyectos" onclick="toggleStar(this)"><img src="../assets/css/img/iconsEstrella.png" alt="" class="crud-proyectos"></button>
@@ -89,6 +167,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                                     <span class="project-star-line"></span>
 
         </div>
+
+        
+
 
        
 
@@ -106,6 +187,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 <div class="form-group">
                     <textarea name="descripcion" class="form-input" placeholder="Descripción (opcional)"></textarea>
                 </div>
+
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('createModal')">Cancelar</button>
                     <button type="submit" name="crear" class="btn btn-primary">Crear Proyecto</button>

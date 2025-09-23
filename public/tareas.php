@@ -93,7 +93,7 @@ if (isset($_GET['eliminar'])) {
 }
 
 // ==========================
-// 6. LISTAR TAREAS
+// 6. LISTAR TODAS LAS TAREAS (CREADAS + ASIGNADAS + COLABORADOR)
 // ==========================
 $stmt = $pdo->prepare("
     SELECT t.*, p.name AS proyecto, u.name AS asignado,
@@ -106,10 +106,11 @@ $stmt = $pdo->prepare("
     FROM tasks t
     LEFT JOIN projects p ON t.project_id = p.id
     LEFT JOIN users u ON t.assignee_id = u.id
-    WHERE t.creator_id = ?
-
+    WHERE t.creator_id = ? 
+       OR t.assignee_id = ? 
+       OR t.id IN (SELECT task_id FROM task_users WHERE user_id = ?)
 ");
-$stmt->execute([$_SESSION['user_id']]);
+$stmt->execute([$_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['user_id']]);
 $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>

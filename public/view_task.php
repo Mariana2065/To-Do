@@ -11,26 +11,34 @@ if (!$id) {
 // ==========================
 // 1. OBTENER INFORMACIÓN DE LA TAREA
 // ==========================
+// Verificar acceso (creator, assignee_id, o colaborador con rol)
 $stmt = $pdo->prepare("
-    SELECT t.*, 
-           p.name AS proyecto, 
-           u.name AS asignado,
-           (SELECT GROUP_CONCAT(tags.name SEPARATOR ', ')
-            FROM task_tags 
-            JOIN tags ON tags.id = task_tags.tag_id
-            WHERE task_tags.task_id = t.id) AS etiquetas
+    SELECT t.*, p.name AS proyecto, u.name AS asignado,
+           COALESCE(tu.role, pu.role, 'owner') AS user_role
     FROM tasks t
     LEFT JOIN projects p ON t.project_id = p.id
     LEFT JOIN users u ON t.assignee_id = u.id
-    WHERE t.id = ? AND t.creator_id = ?
+    LEFT JOIN task_users tu ON tu.task_id = t.id AND tu.user_id = ?
+    LEFT JOIN project_users pu ON pu.project_id = t.project_id AND pu.user_id = ?
+    WHERE t.id = ?
+      AND (
+          t.creator_id = ?
+          OR t.assignee_id = ?
+          OR tu.user_id IS NOT NULL
+          OR pu.user_id IS NOT NULL
+      )
 ");
-$stmt->execute([$id, $_SESSION['user_id']]);
+$stmt->execute([$_SESSION['user_id'], $_SESSION['user_id'], $id, $_SESSION['user_id'], $_SESSION['user_id']]);
 $task = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$task) {
-    echo "Tarea no encontrada o no tienes permisos para verla.";
-    exit;
+    die("Tarea no encontrada o no tienes permisos para verla.");
 }
+
+// Guardamos el rol del usuario en la tarea/proyecto
+$userRole = $task['user_role'];
+
+
 
 // ==========================
 // 2. SUBTAREAS
@@ -84,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comentar'])) {
     exit;
 }
 $stmt = $pdo->prepare("
-    SELECT c.*, u.name 
+    SELECT c.content, u.name, c.created_at
     FROM comments c
-    JOIN users u ON u.id = c.user_id
+    JOIN users u ON c.user_id = u.id
     WHERE c.task_id = ?
     ORDER BY c.created_at DESC
 ");
@@ -118,6 +126,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['subir_adjunto'])) {
 $stmt = $pdo->prepare("SELECT * FROM attachments WHERE task_id = ?");
 $stmt->execute([$id]);
 $adjuntos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+// =============================
+// Colaboradores
+// =============================
+
+// Agregar colaborador
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar_colaborador'])) {
+    $user_id = $_POST['user_id'];
+    $role = $_POST['role'] ?? 'colaborador';
+
+    if ($user_id) {
+        $stmt = $pdo->prepare("INSERT IGNORE INTO task_users (task_id, user_id, role) VALUES (?, ?, ?)");
+        $stmt->execute([$id, $user_id, $role]);
+    }
+    header("Location: view_task.php?id=" . $id);
+    exit;
+}
+
+$stmt = $pdo->prepare("
+    SELECT u.id, u.name, tu.role
+    FROM task_users tu
+    JOIN users u ON u.id = tu.user_id
+    WHERE tu.task_id = ?
+");
+$stmt->execute([$id]);
+$colaboradores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Eliminar colaborador
+if (isset($_GET['remove_colab'])) {
+    $colab_id = $_GET['remove_colab'];
+    $stmt = $pdo->prepare("DELETE FROM task_users WHERE task_id=? AND user_id=?");
+    $stmt->execute([$id, $colab_id]);
+    header("Location: view_task.php?id=" . $id);
+    exit;
+}
+
+// Listar colaboradores
+$stmt = $pdo->prepare("SELECT u.id, u.name, tu.role FROM task_users tu JOIN users u ON tu.user_id=u.id WHERE tu.task_id=?");
+$stmt->execute([$id]);
+$colaboradores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Listar usuarios para invitar
+$usuarios = $pdo->query("SELECT id, name FROM users ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
+
 
 // Traducciones para prioridad
 $prioridades = [
@@ -169,8 +222,13 @@ $estados = [
                 <br>
                 <p><strong class="descripcion-tarea">Creada el:</strong> <?= $task['created_at'] ?></p>
                 <br>
-                <p><strong class="descripcion-tarea">Última actualización:</strong> <?= $task['updated_at'] ?></p>
-            </div>
+                <?php if ($userRole === 'owner' || $userRole === 'editor'): ?>
+                    <a href="tareas.php?editar=<?= $task['id'] ?>">✏ Editar</a>
+                    <a href="tareas.php?eliminar=<?= $task['id'] ?>" onclick="return confirm('¿Eliminar tarea?')">🗑 Eliminar</a>
+                <?php else: ?>
+                    <p><em>🔒 Modo solo lectura (viewer)</em></p>
+                <?php endif; ?>
+           </div>
 
             <div class="task-section">
                 <h3 class="detalles-tareas-titulos">Subtareas</h3>
@@ -181,70 +239,98 @@ $estados = [
                 </form>
 
                 <ul style="list-style:none; padding:0;">
-                    <?php if (!empty($subtareas)): ?>
-                        <?php foreach ($subtareas as $s): ?>
-                            <li style="margin:10px 0; padding:10px; border-bottom:1px solid #ccc;">
-                                <input type="checkbox" class="checkbox-subtarea"
-                                    onclick="location.href='view_task.php?id=<?= $id ?>&toggle_subtarea=<?= $s['id'] ?>'"
-                                    <?= $s['status']=='done' ? 'checked' : '' ?>>
-                                <?= htmlspecialchars($s['title']) ?>
-                                <?php if ($s['status']=='done'): ?>
-                                    <span style="color:green;">✔</span>
-                                <?php endif; ?>
-                                <a href="view_task.php?id=<?= $id ?>&eliminar_subtarea=<?= $s['id'] ?>" 
-                                    onclick="return confirm('¿Eliminar subtarea?')"><img src="../assets/css/img/iconsEliminar.png" alt="" class="icons-eliminar-subtarea"></a>
-                            </li>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <li>No hay subtareas.</li>
-                    <?php endif; ?>
+                    <?php foreach ($subtareas as $s): ?>
+                        <li style="margin:10px 0; padding:10px; border-bottom:1px solid #ccc;">
+                            <input type="checkbox" 
+                                onclick="location.href='subtasks.php?task_id=<?= $task['id'] ?>&toggle=<?= $s['id'] ?>'"
+                                <?= $s['status']=='done' ? 'checked' : '' ?>
+                                <?= ($userRole === 'viewer') ? 'disabled' : '' ?>>
+                            <?= htmlspecialchars($s['title']) ?>
+                            <?php if ($s['status']=='done'): ?>
+                                <span style="color:green;">✔</span>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
-            </div>
-            
-            <div class="task-section">
-                <h3 class="detalles-tareas-titulos"> Comentarios</h3>
-                <ul style="list-style:none; padding:0;">
-                    <?php if (!empty($comentarios)): ?>
-                        <?php foreach ($comentarios as $c): ?>
-                            <li>
-                                <strong class="descripcion-tarea"><?= htmlspecialchars($c['name']) ?>:</strong> 
-                                <?= htmlspecialchars($c['content']) ?> 
-                                <em>(<?= $c['created_at'] ?>)</em>
-                                <a href="delete_comment.php?id=<?= $c['id'] ?>" onclick="return confirm('¿Eliminar comentario?')"><img src="../assets/css/img/iconsEliminar.png" alt="" class="icons-eliminar-subtarea"></a>
-                            </li>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                         <li>No hay comentarios.</li>
-                    <?php endif; ?>
+
+                            <?php if ($userRole !== 'viewer'): ?>
+                                <form method="POST" action="subtasks.php">
+                                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                                    <input type="text" name="title" placeholder="Nueva subtarea" required>
+                                    <button type="submit" name="crear">➕ Agregar</button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <div class="task-section">
+                            <h3 class="detalles-tareas-titulos"> Comentarios</h3>
+                            <ul>
+                    <?php foreach ($comentarios as $c): ?>
+                        <li><strong><?= htmlspecialchars($c['name']) ?>:</strong> <?= htmlspecialchars($c['content']) ?> (<?= $c['created_at'] ?>)</li>
+                    <?php endforeach; ?>
                 </ul>
-                <form method="POST">
-                    <input type="text" name="contenido" class="form-input" placeholder="Escribe un comentario" required>
-                    <button type="submit" name="comentar" class="login-btn">Comentar</button>
+
+                <form method="POST" action="tareas.php">
+                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                    <input type="text" name="contenido" placeholder="Escribe un comentario" required>
+                    <button type="submit" name="comentar">Comentar</button>
                 </form>
             </div>
 
             <div class="task-section">
                 <h3 class="detalles-tareas-titulos"> Archivos Adjuntos</h3>
-                <ul style="list-style:none; padding:0;">
-                <?php if ($adjuntos) {
-                    foreach ($adjuntos as $adj): ?>
+                <ul>
+                    <?php foreach ($adjuntos as $adj): ?>
                         <li>
-                            <a href="download_attachment.php?id=<?= $adj['id'] ?>">
-                                <?= htmlspecialchars($adj['filename']) ?>
+                            <a href="../uploads/<?= htmlspecialchars($adj['filename']) ?>" target="_blank">
+                                <?= htmlspecialchars($adj['original_name']) ?>
                             </a>
-                            <a href="delete_attachment.php?id=<?= $adj['id'] ?>" 
-                            onclick="return confirm('¿Eliminar adjunto?')">❌</a>
+                            <?php if ($userRole !== 'viewer'): ?>
+                                <a href="delete_attachment.php?id=<?= $adj['id'] ?>" onclick="return confirm('¿Eliminar adjunto?')">❌</a>
+                            <?php endif; ?>
                         </li>
-                    <?php endforeach;
-                } else {
-                    echo "<p>No hay adjuntos.</p>";
-                } ?>
+                    <?php endforeach; ?>
                 </ul>
-                <form method="POST" enctype="multipart/form-data" action="upload_attachment.php">
-                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                    <input type="file" name="archivo" required>
-                    <button type="submit">Subir Archivo</button>
-                </form>
+                <?php if ($userRole !== 'viewer'): ?>
+                    <form method="POST" action="upload_attachment.php" enctype="multipart/form-data">
+                        <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                        <input type="file" name="archivo" required>
+                        <button type="submit">📤 Subir</button>
+                    </form>
+                <?php endif; ?>
+
+                <!-- Colaboradores -->
+                <h3 class="logo-text" style="margin-top:20px;">👥 Colaboradores</h3>
+                <ul>
+                    <?php foreach ($colaboradores as $col): ?>
+                        <li><?= htmlspecialchars($col['name']) ?> (<?= htmlspecialchars($col['role']) ?>)</li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <!-- Formulario para invitar colaborador -->
+                <?php if ($userRole === 'owner'): ?>
+                    <form method="POST" action="share_task.php">
+                        <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                        <label>Usuario:</label>
+                        <select name="user_id">
+                            <?php
+                            $users = $pdo->query("SELECT id, name FROM users")->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($users as $u):
+                                if ($u['id'] == $_SESSION['user_id']) continue;
+                            ?>
+                                <option value="<?= $u['id'] ?>"><?= htmlspecialchars($u['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <label>Rol:</label>
+                        <select name="role">
+                            <option value="editor">Editor</option>
+                            <option value="viewer">Viewer</option>
+                        </select>
+                        <button type="submit">➕ Agregar Colaborador</button>
+                    </form>
+                <?php endif; ?>
+
+
             </div>
 
         </div>

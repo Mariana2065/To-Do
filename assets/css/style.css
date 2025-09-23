@@ -1115,18 +1115,7 @@
      margin-top: 30px;
  }
 
- .left-section-buscador {
-     flex: 1;
-     background: var(--color-cremita);
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: flex-start;
-     position: relative;
-     align-items: center;
-     padding-top: 20px;
-     border-radius: 25px;
- }
+ 
 
 /* ========================================
    ESTILOS MEJORADOS PARA LA INTERFAZ DE TAREAS
@@ -2023,11 +2012,7 @@ textarea.form-input-tareas {
     font-family: 'Philosopher', sans-serif;
 }
 
-.logo-text::before {
-    content: '📋';
-    margin-right: 10px;
-    font-size: 1.5rem;
-}
+
 
 /* Lista de etiquetas modernizada */
 .body-ver-tags ul {
@@ -2326,20 +2311,19 @@ textarea.form-input-tareas {
      display: flex;
      justify-content: center;
  }
- .form-container-buscador,
- .resultados-busquedad{
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-cremita);
-    width: 50vw;
-    height: 67vh;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-    border-radius: 25px;
-    align-items:center ;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 30px;
- }
+.form-container-buscador,
+.resultados-busquedad{
+display: flex;
+flex-direction: column;
+background-color: var(--color-cremita);
+width: 50vw;
+height: 67vh;
+border-radius: 25px;
+align-items:center ;
+flex-wrap: wrap;
+justify-content: center;
+margin-bottom: 30px;
+}
 
 .btn-filtarYLimpiar,
 .btn-filtarYLimpiar a {
@@ -2348,12 +2332,11 @@ textarea.form-input-tareas {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s 
-ease;
-    text-decoration: none;
-    font-size: 14px;
+border-radius: 20px;
+cursor: pointer;
+transition: all 0.3s ease;
+text-decoration: none;
+font-size: 14px;
     margin-top: auto;
     display: block;
     text-align: center;
@@ -2363,8 +2346,7 @@ ease;
     display: flex;
 }
 #input-buscador,
-#main-filter
-{
+#main-filter {
     width: 60%;
     padding: 15px 0;
     border: none;
@@ -2373,16 +2355,15 @@ ease;
     font-size: 16px;
     color: #2c3e50;
     outline: none;
-    transition: all 0.3s 
-ease;
-margin-top: 10px;
-margin-bottom: 5px;
-}
- #input-buscador:focus,
-#main-filter:focus {
-    border-color: var(--color-rosa-fuerte)
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
+#input-buscador:focus,
+#main-filter:focus {
+    border-color: var(--color-rosa-fuerte);
+}
 
 /*RESULTADOS BUSQUEDAD */
 /* Contenedor principal de la sección de resultados */
@@ -2862,7 +2843,15 @@ margin-bottom: 5px;
     overflow: hidden;
 }
 
-
+.project-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-morado-principal), var(--color-rosa-suave));
+}
 
 .project-item:hover {
     transform: translateY(-5px);
@@ -2960,6 +2949,7 @@ margin-bottom: 5px;
     border-radius: 20px;
     padding: 20px 30px;
     cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -2972,7 +2962,11 @@ margin-bottom: 5px;
     z-index: 100;
 }
 
-
+.add-project-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, var(--color-morado-oscuro), var(--color-morado-principal));
+}
 
 .add-project-icon img {
     width: 24px;
@@ -3227,4 +3221,356 @@ margin-bottom: 5px;
 
 .add-project-btn:hover {
     animation: none;
+}
+/* =================================
+   BUSCADOR - DISEÑO 
+================================= */
+
+/* Variables con tus colores específicos */
+:root {
+    --color-rosa-fuerte: #ff7eb6;
+    --color-rosado: #F0C6D8;
+    --blanco: #ffffff;
+    --gris-claro: #f8f9fa;
+    --gris: #6b7280;
+    --texto-oscuro: #2d3748;
+}
+
+/* Contenedor principal - Fondo degradado sutil */
+.main-buscador {
+    background: linear-gradient(135deg, #fef7f0 0%, var(--color-rosado) 100%);
+    min-height: 100vh;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Contenedor de búsqueda - Más limpio */
+.projects-list {
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #e5e5e5;
+    max-width: 100%;
+}
+
+.boton-registro-login-left {
+    width: 100%;
+}
+
+/* Formulario bonito */
+.form-container-buscador {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+}
+
+/* Inputs más simples */
+#input-buscador,
+.form-input {
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--blanco);
+    color: var(--texto-oscuro);
+    width: 60%;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+#input-buscador:focus,
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-rosa-fuerte);
+}
+
+#input-buscador::placeholder,
+.form-input::placeholder {
+    color: #a0a0a0;
+    font-style: italic;
+}
+
+/* Select principal más simple */
+#main-filter {
+    background: var(--color-rosa-fuerte);
+    color: var(--blanco);
+    font-weight: 500;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#main-filter:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 126, 182, 0.4);
+}
+
+/* Subfiltros simples */
+.sub-filter {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+/* Labels simples */
+.descripcion-tarea {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 14px;
+}
+
+/* Botones más simples */
+.btn-filtarYLimpiar {
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn-filtarYLimpiar[type="submit"] {
+    background: var(--color-rosa-fuerte);
+    color: var(--blanco);
+    border: none;
+}
+
+.btn-filtarYLimpiar:not([type="submit"]) {
+    background: var(--blanco);
+    color: var(--color-rosa-fuerte);
+    border: 1px solid var(--color-rosa-fuerte);
+}
+
+/* Sección de resultados elegante */
+.seccion-resultados-busqueda {
+    background: var(--blanco);
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid rgba(240, 198, 216, 0.3);
+    box-shadow: 0 4px 20px rgba(255, 126, 182, 0.08);
+}
+
+.titulo-resultados {
+    color: var(--color-rosa-fuerte);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--color-rosado);
+}
+
+/* Lista bonita */
+.lista-resultados-tareas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tarjeta-tarea-resultado {
+    background: linear-gradient(135deg, var(--blanco), rgba(240, 198, 216, 0.05));
+    border: 1px solid rgba(240, 198, 216, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.tarjeta-tarea-resultado:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 126, 182, 0.15);
+    border-color: var(--color-rosa-fuerte);
+}
+
+.tarjeta-tarea-resultado::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-rosa-fuerte);
+    border-radius: 10px 0 0 10px;
+}
+
+/* Encabezado elegante */
+.encabezado-tarea-resultado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.enlace-tarea-titulo {
+    color: var(--texto-oscuro);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    flex: 1;
+    transition: color 0.2s ease;
+}
+
+.enlace-tarea-titulo:hover {
+    color: var(--color-rosa-fuerte);
+}
+
+/* Meta información bonita */
+.meta-tarea-resultado {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Badges hermosos */
+.estado-tarea-badge,
+.prioridad-tarea-badge {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+/* Estados con tus colores */
+.estado-tarea-badge.por-hacer {
+    background: rgba(240, 198, 216, 0.3);
+    color: var(--color-rosa-fuerte);
+}
+
+.estado-tarea-badge.en-progreso {
+    background: var(--color-rosado);
+    color: var(--color-rosa-fuerte);
+}
+
+.estado-tarea-badge.completada {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.estado-tarea-badge.archivada {
+    background: #f3f4f6;
+    color: var(--gris);
+}
+
+/* Prioridades bonitas */
+.prioridad-tarea-badge.baja {
+    background: #f8f9fa;
+    color: var(--gris);
+}
+
+.prioridad-tarea-badge.media {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.prioridad-tarea-badge.alta {
+    background: #ffeaa7;
+    color: #d68910;
+}
+
+.prioridad-tarea-badge.urgente {
+    background: var(--color-rosa-fuerte);
+    color: var(--blanco);
+}
+
+/* Información elegante */
+.proyecto-tarea-info,
+.asignado-a-usuario,
+.etiquetas-tarea-listado {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-rosa-fuerte);
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.etiquetas-tarea-listado {
+    font-style: italic;
+    color: var(--gris);
+}
+
+/* Iconos bonitos */
+.icono-info,
+.icono-info-pequeno {
+    width: 16px;
+    height: 16px;
+    filter: hue-rotate(320deg) saturate(1.2);
+    opacity: 0.8;
+}
+
+.icono-info-pequeno {
+    width: 14px;
+    height: 14px;
+}
+
+/* Responsive elegante */
+@media (max-width: 768px) {
+    .main-buscador {
+        padding: 16px;
+    }
+    
+    .projects-list,
+    .seccion-resultados-busqueda {
+        padding: 20px;
+    }
+    
+    .encabezado-tarea-resultado {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn-filtarYLimpiar {
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+}
+
+/* Estado vacío bonito */
+.lista-resultados-tareas:empty::after {
+    content: "✨ No se encontraron resultados";
+    display: block;
+    text-align: center;
+    padding: 40px;
+    color: var(--color-rosado);
+    font-style: italic;
+    font-size: 16px;
+}
+
+/* Prevenir overflow */
+.main-buscador,
+.projects-list,
+.seccion-resultados-busqueda {
+    overflow-x: hidden;
+}
+
+/* Fechas en desktop */
+@media (min-width: 769px) {
+    #filter-fecha {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    #filter-fecha .descripcion-tarea {
+        grid-column: 1 / -1;
+    }
 }

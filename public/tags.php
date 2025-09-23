@@ -63,7 +63,7 @@ $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit" name="crear" class="crear-tag">Crear Etiqueta</button>
         </form>
 
-        <h3 class="logo-text" style="margin-top:20px;">📋 Lista de Etiquetas</h3>
+        <h3 class="logo-text" style="margin-top:20px;">Lista de Etiquetas</h3>
         <ul style="list-style:none; padding:0;">
             <?php foreach ($tags as $tag): ?>
                 <li style="margin:10px 0; padding:10px; border-bottom:1px solid #ccc;">

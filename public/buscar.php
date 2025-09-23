@@ -182,7 +182,6 @@ $estados = [
                             <option value="todo" <?= ($_GET['estado'] ?? '') == "todo" ? "selected" : "" ?>>Por hacer</option>
                             <option value="in_progress" <?= ($_GET['estado'] ?? '') == "in_progress" ? "selected" : "" ?>>En progreso</option>
                             <option value="done" <?= ($_GET['estado'] ?? '') == "done" ? "selected" : "" ?>>Hecha</option>
-                            <option value="archived" <?= ($_GET['estado'] ?? '') == "archived" ? "selected" : "" ?>>Archivada</option>
                         </select>
                     </div>
 

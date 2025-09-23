@@ -57,13 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
 <body>
 <div class="container-registro">
 
-    <!-- Sidebar
-    <div class="left-section">
-        <div class="boton-registro-login-left">
-            <button class="btn-registro" onclick="location.href='dashboard.php'">⬅ Dashboard</button>
-            <button class="btn-login" onclick="location.href='logout.php'">Cerrar Sesión</button>
-        </div>
-    </div> -->
+    <!-- Sidebar -->
+
     <?php include_once '../include/sidebar.php'; ?>
 
     <!-- Contenido -->
@@ -83,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['actualizar'])) {
             <?php if (!empty($usuario['avatar'])): ?>
                 <img src="../<?= htmlspecialchars($usuario['avatar']) ?>" alt="Avatar" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
             <?php else: ?>
-                <img src="../assets/img/default-avatar.png" alt="Avatar" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+                <img src="../assets/css/img/iconperfil.png" alt="Avatar" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
             <?php endif; ?>
         </div>
 

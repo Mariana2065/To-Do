@@ -34,6 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['crear'])) {
     $estado = $_POST['estado'];
     $fecha_venc = $_POST['due_date'] ?: null;
 
+    if ($fecha_venc && $fecha_venc < date('Y-m-d')) {
+        die("⚠ La fecha de vencimiento no puede ser anterior a hoy.");
+    }
+
     if (!empty($titulo)) {
         $stmt = $pdo->prepare("INSERT INTO tasks (title, description, creator_id, project_id, assignee_id, priority, status, due_date) 
                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -56,6 +60,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['crear'])) {
 // ==========================
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['editar'])) {
     $id = $_POST['id'];
+    // Validar permiso para editar
+    $stmt = $pdo->prepare("SELECT creator_id FROM tasks WHERE id = ?");
+    $stmt->execute([$id]);
+    $task = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $stmt = $pdo->prepare("SELECT role FROM task_users WHERE task_id = ? AND user_id = ?");
+    $stmt->execute([$id, $_SESSION['user_id']]);
+    $user_role = $stmt->fetchColumn();
+
+    if (!$task || ($task['creator_id'] != $_SESSION['user_id'] && $user_role !== 'editor')) {
+        // No permiso
+        die("No tienes permiso para editar esta tarea.");
+    }
+
     $titulo = trim($_POST['titulo']);
     $descripcion = trim($_POST['descripcion']);
     $proyecto_id = $_POST['proyecto_id'] ?: null;
@@ -65,9 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['editar'])) {
     $fecha_venc = $_POST['due_date'] ?: null;
 
     $stmt = $pdo->prepare("UPDATE tasks 
-                           SET title=?, description=?, project_id=?, assignee_id=?, priority=?, status=?, due_date=? 
-                           WHERE id=? AND creator_id=?");
-    $stmt->execute([$titulo, $descripcion, $proyecto_id, $assignee_id, $prioridad, $estado, $fecha_venc, $id, $_SESSION['user_id']]);
+            SET title=?, description=?, project_id=?, assignee_id=?, priority=?, status=?, due_date=? 
+            WHERE id=?");
+    $stmt->execute([$titulo, $descripcion, $proyecto_id, $assignee_id, $prioridad, $estado, $fecha_venc, $id]);
 
     // Actualizar etiquetas
     $pdo->prepare("DELETE FROM task_tags WHERE task_id=?")->execute([$id]);
@@ -86,6 +104,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['editar'])) {
 // ==========================
 if (isset($_GET['eliminar'])) {
     $id = $_GET['eliminar'];
+    // Solo el creador puede eliminar
+    $stmt = $pdo->prepare("SELECT creator_id FROM tasks WHERE id = ?");
+    $stmt->execute([$id]);
+    $task = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$task || $task['creator_id'] != $_SESSION['user_id']) {
+        die("No tienes permiso para eliminar esta tarea.");
+    }
+
     $stmt = $pdo->prepare("DELETE FROM tasks WHERE id = ? AND creator_id = ?");
     $stmt->execute([$id, $_SESSION['user_id']]);
     header("Location: tareas.php");
@@ -102,14 +129,17 @@ $stmt = $pdo->prepare("
             JOIN tags ON tags.id = task_tags.tag_id
             WHERE task_tags.task_id = t.id) AS etiquetas,
            (SELECT COUNT(*) FROM subtasks s WHERE s.task_id = t.id) AS total_subtareas,
-           (SELECT COUNT(*) FROM subtasks s WHERE s.task_id = t.id AND s.status = 'done') AS subtareas_completadas
+           (SELECT COUNT(*) FROM subtasks s WHERE s.task_id = t.id AND s.status = 'done') AS subtareas_completadas,
+           -- Obtener rol del usuario para esta tarea:
+           (SELECT role FROM task_users WHERE task_id = t.id AND user_id = ?) AS user_role
     FROM tasks t
     LEFT JOIN projects p ON t.project_id = p.id
     LEFT JOIN users u ON t.assignee_id = u.id
-    WHERE t.creator_id = ?
-
+    WHERE t.creator_id = ? 
+       OR t.assignee_id = ? 
+       OR t.id IN (SELECT task_id FROM task_users WHERE user_id = ?)
 ");
-$stmt->execute([$_SESSION['user_id']]);
+$stmt->execute([$_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['user_id']]);
 $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -201,7 +231,7 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group-tareas">
                 <label>Fecha de vencimiento:</label>
                 <br>
-                <input type="date" name="due_date" class="form-input-tareas">
+                <input type="date" name="due_date" class="form-input-tareas" min="<?= date('Y-m-d') ?>">
             </div>
 
             <button type="submit" name="crear" class="btn-crear-tarea">Crear Tarea</button>
@@ -228,27 +258,47 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?> -->
 
                     <!-- Acciones -->
-                    <a href="view_task.php?id=<?= $t['id'] ?>" ><img src="../assets/css/img/ver-detalles.gif" alt=""></a>
-                    <a href="tareas.php?editar=<?= $t['id'] ?>" ><img src="../assets/css/img/iconEditar.png" alt="" class="crud-proyectos"></a>
-                    <a href="tareas.php?eliminar=<?= $t['id'] ?>"  onclick="return confirm('¿Eliminar tarea?')"><img src="../assets/css/img/iconsEliminar.png" alt="" class="crud-proyectos"></a>
-                </li>
+                    <a href="view_task.php?id=<?= $t['id'] ?>"><img src="../assets/css/img/ver-detalles.gif" alt="Ver detalles"></a>
+
+                    <?php
+                        $user_role = $t['user_role']; // rol colaborador
+                        $is_creator = $t['creator_id'] == $_SESSION['user_id'];
+                    ?>
+
+                    <?php if ($is_creator || $user_role === 'editor'): ?>
+                        <a href="tareas.php?editar=<?= $t['id'] ?>"><img src="../assets/css/img/iconEditar.png" alt="Editar" class="crud-proyectos"></a>
+                    <?php endif; ?> 
+
+                    <?php if ($is_creator): ?>
+                        <a href="tareas.php?eliminar=<?= $t['id'] ?>" onclick="return confirm('¿Eliminar tarea?')"><img src="../assets/css/img/iconsEliminar.png" alt="Eliminar" class="crud-proyectos"></a>
+                    <?php endif; ?>  
+
+                 </li>
             <?php endforeach; ?>
         </ul>
         </div>
 
        <!-- Formulario de edición -->
-<?php if (isset($_GET['editar'])): 
-    $id = $_GET['editar'];
-    $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ? AND creator_id = ?");
-    $stmt->execute([$id, $_SESSION['user_id']]);
-    $edit = $stmt->fetch(PDO::FETCH_ASSOC);
+        <?php 
+        if (isset($_GET['editar'])) {
+            $id = $_GET['editar'];
 
-    $stmt = $pdo->prepare("SELECT tag_id FROM task_tags WHERE task_id = ?");
-    $stmt->execute([$id]);
-    $tags_asignadas = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            // Obtener la tarea
+            $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ?");
+            $stmt->execute([$id]);
+            $edit = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($edit):
-?>
+            // Validar permisos (creador o editor)
+            $stmt = $pdo->prepare("SELECT role FROM task_users WHERE task_id = ? AND user_id = ?");
+            $stmt->execute([$id, $_SESSION['user_id']]);
+            $user_role = $stmt->fetchColumn();
+
+            if ($edit && ($edit['creator_id'] == $_SESSION['user_id'] || $user_role === 'editor')) {
+                // Obtener etiquetas
+                $stmt = $pdo->prepare("SELECT tag_id FROM task_tags WHERE task_id = ?");
+                $stmt->execute([$id]);
+                $tags_asignadas = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        ?>
 <!-- Modal Overlay -->
 <div class="modal-overlay-editar-tarea activo" id="modalEditarTarea">
     <div class="contenedor-modal-editar-tarea">
@@ -288,7 +338,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php endforeach; ?>
                         </select>
                     </div>
-
+                    
+                    <!-- Asignado a -->
                     <div class="grupo-input-editar-tarea">
                         <label class="label-editar-tarea">Asignar a</label>
                         <select name="assignee_id" class="select-editar-tarea">
@@ -334,7 +385,6 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <option value="todo" <?= ($edit['status']=="todo"?"selected":"") ?>>📋 Por hacer</option>
                             <option value="in_progress" <?= ($edit['status']=="in_progress"?"selected":"") ?>>⚡ En progreso</option>
                             <option value="done" <?= ($edit['status']=="done"?"selected":"") ?>>✅ Hecha</option>
-                            <option value="archived" <?= ($edit['status']=="archived"?"selected":"") ?>>📦 Archivada</option>
                         </select>
                     </div>
                 </div>
@@ -351,10 +401,16 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <button type="submit" name="editar" class="btn-guardar-editar-tarea">💾 Guardar Cambios</button>
                 </div>
             </form>
+            <?php
+                } else {
+                    echo "<p style='color:red;'>No tienes permiso para editar esta tarea.</p>";
+                }
+            }
+            ?>
         </div>
     </div>
 </div>
-<?php endif; endif; ?>
+
 <script>
 function cerrarModalEditarTarea() {
     // Redirigir a la página sin el parámetro editar

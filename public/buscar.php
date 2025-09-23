@@ -120,12 +120,11 @@ $estados = [
         <div class="projects-list">
             <div class="boton-registro-login-left">
                 <form method="GET" class="form-container-buscador">
-                    
                     <input type="text" name="q" placeholder="Buscar..." id="input-buscador" class="form-input" id="input-buscador"  value=  "<?= htmlspecialchars($_GET['q'] ?? '') ?>">
 
                     <!-- Select principal -->
                     
-                    <select id="main-filter" id="input-buscador" >
+                    <select id="main-filter" id="input-buscador"  >
                         <option value="">Filtro</option>
                         <option value="proyecto">Proyecto</option>
                         <option value="responsable">Responsable</option>

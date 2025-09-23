@@ -82,7 +82,7 @@ $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $edit = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($edit):
         ?>
-        <h3 class="logo-text" style="margin-top:20px;">✏ Editar Etiqueta</h3>
+        <h3 class="logo-text" style="margin-top:20px;">Editar Etiqueta</h3>
         <form method="POST" class="form-container-tags">
             <input type="hidden" name="id" value="<?= $edit['id'] ?>">
             <div class="form-group">

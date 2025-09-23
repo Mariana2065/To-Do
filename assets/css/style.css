@@ -2102,15 +2102,7 @@ textarea.form-input-tareas {
     position: relative;
 }
 
-.body-ver-tags .form-container-tags:last-child::before {
-    content: '✏️';
-    position: absolute;
-    top: -15px;
-    left: 20px;
-    background: white;
-    padding: 0 10px;
-    font-size: 20px;
-}
+
 
 /* Scroll personalizado */
 .body-ver-tags .right-section::-webkit-scrollbar {
@@ -3225,10 +3217,11 @@ font-size: 14px;
 /* Formulario bonito */
 .form-container-buscador {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
     max-width: 100%;
+    align-content: center;
 }
 
 /* Inputs más simples */
@@ -3240,7 +3233,7 @@ font-size: 14px;
     font-size: 14px;
     background: var(--blanco);
     color: var(--texto-oscuro);
-    width: 60%;
+    width: 30%;
     box-sizing: border-box;
     transition: border-color 0.2s ease;
 }

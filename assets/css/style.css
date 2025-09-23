@@ -313,6 +313,7 @@
          opacity: 1;
      }
  }
+ 
 
  /*Link olvidaste la contraseña*/
  #link_recuperar_contraseña {
@@ -3262,6 +3263,7 @@ font-size: 14px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex-wrap: wrap;
     max-width: 100%;
 }
 

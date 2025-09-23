@@ -68,8 +68,8 @@ $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($tags as $tag): ?>
                 <li style="margin:10px 0; padding:10px; border-bottom:1px solid #ccc;">
                     <strong><?= htmlspecialchars($tag['name']) ?></strong>
-                    <a href="tags.php?editar=<?= $tag['id'] ?>" class="btn-login">Editar</a>
-                    <a href="tags.php?eliminar=<?= $tag['id'] ?>" class="btn-registro" onclick="return confirm('¿Eliminar etiqueta?')">Eliminar</a>
+                    <a href="tags.php?editar=<?= $tag['id'] ?>" class="btn-editartags"><img src="../assets/css/img/iconEditar.png" alt=""></a>
+                    <a href="tags.php?eliminar=<?= $tag['id'] ?>" class="btn-eliminartags" onclick="return confirm('¿Eliminar etiqueta?')"><img src="../assets/css/img/iconsEliminar.png" alt=""></a>
                 </li>
             <?php endforeach; ?>
         </ul>

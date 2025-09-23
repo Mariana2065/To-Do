@@ -1613,11 +1613,7 @@ textarea.form-input-tareas {
     font-size: 14px;
 }
 
-.descripcion-tarea {
-    color: #e2a9c1;
-    font-weight: 600;
-    margin-right: 8px;
-}
+
 
 /* Formularios mejorados */
 .task-section form {
@@ -2079,9 +2075,8 @@ textarea.form-input-tareas {
 }
 
 /* Botones de acción rediseñados */
-.body-ver-tags .btn-login,
-.body-ver-tags .btn-registro {
-    padding: 8px 16px;
+.body-ver-tags .btn-editartags img,
+.body-ver-tags .btn-eliminartags img {
     border: none;
     border-radius: 8px;
     font-size: 14px;
@@ -2092,50 +2087,13 @@ textarea.form-input-tareas {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 80px;
     position: relative;
     overflow: hidden;
+    width: 20px;
+    margin-left: 15px;
 }
 
-.body-ver-tags .btn-login {
-    background: linear-gradient(135deg, #4CAF50, #45a049);
-    color: white;
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-}
 
-.body-ver-tags .btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.3);
-}
-
-.body-ver-tags .btn-registro {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
-    color: white;
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.2);
-}
-
-.body-ver-tags .btn-registro:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(244, 67, 54, 0.3);
-}
-
-/* Efectos shimmer para botones */
-.body-ver-tags .btn-login::before,
-.body-ver-tags .btn-registro::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
-
-.body-ver-tags .btn-login:hover::before,
-.body-ver-tags .btn-registro:hover::before {
-    left: 100%;
-}
 
 /* Formulario de edición mejorado */
 .body-ver-tags .form-container-tags:last-child {
@@ -2365,6 +2323,7 @@ font-size: 14px;
     transition: all 0.3s ease;
     margin-top: 10px;
     margin-bottom: 5px;
+    
 }
 
 #input-buscador:focus,
@@ -2379,7 +2338,7 @@ font-size: 14px;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     font-family: 'Philosopher', sans-serif;
 }
 
 /* Título de la sección */
@@ -2668,7 +2627,7 @@ font-size: 14px;
     font-size: 1rem;
     transition: all 0.2s ease;
     outline: none;
-    font-family: inherit;
+     font-family: 'Philosopher', sans-serif;
 }
 
 .input-editar-tarea:focus,
@@ -2681,7 +2640,7 @@ font-size: 14px;
 .textarea-editar-tarea {
     resize: vertical;
     min-height: 80px;
-    font-family: inherit;
+     font-family: 'Philosopher', sans-serif;
 }
 
 /* Checkbox Editar Tarea - Styles */
@@ -2805,7 +2764,7 @@ font-size: 14px;
     background: linear-gradient(135deg, var(--color-morado-suave), var(--color-morado-claro));
     min-height: 100vh;
     padding: 30px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     font-family: 'Philosopher', sans-serif;
 }
 
 /* Header de la página */
@@ -3101,7 +3060,7 @@ font-size: 14px;
     font-size: 1rem;
     transition: all 0.2s ease;
     outline: none;
-    font-family: inherit;
+     font-family: 'Philosopher', sans-serif;
     background: var(--color-gris-claro);
 }
 
@@ -3248,7 +3207,7 @@ font-size: 14px;
     background: linear-gradient(135deg, #fef7f0 0%, var(--color-rosado) 100%);
     min-height: 100vh;
     padding: 24px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+     font-family: 'Philosopher', sans-serif;
 }
 
 /* Contenedor de búsqueda - Más limpio */
@@ -3256,7 +3215,6 @@ font-size: 14px;
     border-radius: 8px;
     padding: 24px;
     margin-bottom: 24px;
-    border: 1px solid #e5e5e5;
     max-width: 100%;
 }
 
@@ -3318,8 +3276,6 @@ font-size: 14px;
 
 /* Subfiltros simples */
 .sub-filter {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
     border-radius: 6px;
     padding: 16px;
     margin-top: 12px;
@@ -3328,7 +3284,7 @@ font-size: 14px;
 /* Labels simples */
 .descripcion-tarea {
     font-weight: 500;
-    color: #374151;
+    color: var(--color-rosa-suave);
     margin-bottom: 8px;
     display: block;
     font-size: 14px;

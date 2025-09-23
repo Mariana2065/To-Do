@@ -44,9 +44,11 @@ $tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Etiquetas - <?= APP_NAME ?></title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body class="body-ver-tags">
-    <!-- Sidebar -->
         <?php include_once '../include/sidebar.php'; ?>
+
+        
+<body class="body-ver-tags">
+ 
 
 
     <!-- Contenido -->

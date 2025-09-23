@@ -91,96 +91,105 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
 
        
+<!-- Botón agregar proyecto -->
+<div class="add-project-btn" onclick="openCreateModal()">
+    <div class="add-project-icon">
+        <img src="../assets/css/img/iconsmas.png" alt="">
+    </div>
+    <span>Agregar proyecto</span>
+</div>
 
-    <!-- Modal para crear proyecto -->
-    <div id="createModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Crear Nuevo Proyecto</h3>
-                <button class="close-btn" onclick="closeModal('createModal')">&times;</button>
+<!-- Modal para crear proyecto -->
+<div id="modalCrearProyecto" class="modal-crear-proyecto">
+    <div class="contenido-modal-proyecto">
+        <div class="header-modal-proyecto">
+            <h3 class="titulo-modal-proyecto"> Crear Nuevo Proyecto</h3>
+            <button class="btn-cerrar-modal-proyecto" onclick="cerrarModalCrearProyecto()">&times;</button>
+        </div>
+        <form method="POST" class="formulario-crear-proyecto">
+            <div class="grupo-input-proyecto">
+                <input type="text" name="nombre" class="input-proyecto" placeholder="Nombre del proyecto" required>
             </div>
-            <form method="POST" id="createForm">
-                <div class="form-group">
-                    <input type="text" name="nombre" class="form-input" placeholder="Nombre del proyecto" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="descripcion" class="form-input" placeholder="Descripción (opcional)"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('createModal')">Cancelar</button>
-                    <button type="submit" name="crear" class="btn btn-primary">Crear Proyecto</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal para editar proyecto -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Editar Proyecto</h3>
-                <button class="close-btn" onclick="closeModal('editModal')">&times;</button>
+            <div class="grupo-input-proyecto">
+                <textarea name="descripcion" class="textarea-proyecto" placeholder="Descripción (opcional)"></textarea>
             </div>
-            <form method="POST" id="editForm">
-                <input type="hidden" name="id" id="editId">
-                <div class="form-group">
-                    <input type="text" name="nombre" id="editNombre" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="descripcion" id="editDescripcion" class="form-input" placeholder="Descripción (opcional)"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('editModal')">Cancelar</button>
-                    <button type="submit" name="editar" class="btn btn-primary">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
+            <div class="acciones-formulario-proyecto">
+                <button type="button" class="btn-proyecto btn-secundario-proyecto" onclick="cerrarModalCrearProyecto()">Cancelar</button>
+                <button type="submit" name="crear" class="btn-proyecto btn-primario-proyecto">Crear Proyecto</button>
+            </div>
+        </form>
     </div>
-     <!-- Botón agregar proyecto -->
-        <div class="add-project-btn" onclick="openCreateModal()">
-            <div class="add-project-icon"><img src="../assets/css/img/iconsmas.png" alt=""></div>
-            <span>Agregar proyecto</span>
-        </div>
-    </div>
+</div>
 
+<!-- Modal para editar proyecto -->
+<div id="modalEditarProyecto" class="modal-editar-proyecto">
+    <div class="contenido-modal-proyecto">
+        <div class="header-modal-proyecto">
+            <h3 class="titulo-modal-proyecto">Editar Proyecto</h3>
+            <button class="btn-cerrar-modal-proyecto" onclick="cerrarModalEditarProyecto()">&times;</button>
+        </div>
+        <form method="POST" class="formulario-editar-proyecto">
+            <input type="hidden" name="id" id="editarIdProyecto">
+            <div class="grupo-input-proyecto">
+                <input type="text" name="nombre" id="editarNombreProyecto" class="input-proyecto" required>
+            </div>
+            <div class="grupo-input-proyecto">
+                <textarea name="descripcion" id="editarDescripcionProyecto" class="textarea-proyecto" placeholder="Descripción (opcional)"></textarea>
+            </div>
+            <div class="acciones-formulario-proyecto">
+                <button type="button" class="btn-proyecto btn-secundario-proyecto" onclick="cerrarModalEditarProyecto()">Cancelar</button>
+                <button type="submit" name="editar" class="btn-proyecto btn-primario-proyecto"> Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
     <script>
-        function openCreateModal() {
-            document.getElementById('createModal').classList.add('show');
-        }
+    function openCreateModal() {
+        document.getElementById('modalCrearProyecto').classList.add('show');
+    }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-        }
+    function cerrarModalCrearProyecto() {
+        document.getElementById('modalCrearProyecto').classList.remove('show');
+    }
 
-        function editProject(id, nombre, descripcion) {
-            document.getElementById('editId').value = id;
-            document.getElementById('editNombre').value = nombre;
-            document.getElementById('editDescripcion').value = descripcion;
-            document.getElementById('editModal').classList.add('show');
-        }
+    function cerrarModalEditarProyecto() {
+        document.getElementById('modalEditarProyecto').classList.remove('show');
+    }
 
-        function deleteProject(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este proyecto?')) {
-                window.location.href = 'proyectos.php?eliminar=' + id;
-            }
-        }
+    function editProject(id, nombre, descripcion) {
+        document.getElementById('editarIdProyecto').value = id;
+        document.getElementById('editarNombreProyecto').value = nombre;
+        document.getElementById('editarDescripcionProyecto').value = descripcion;
+        document.getElementById('modalEditarProyecto').classList.add('show');
+    }
 
-        function toggleStar(element) {
-            if (element.classList.contains('active')) {
-                element.classList.remove('active');
-                element.textContent = '☆';
-            } else {
-                element.classList.add('active');
-                element.textContent = '★';
-            }
+    function deleteProject(id) {
+        if (confirm('🗑️ ¿Estás seguro de que deseas eliminar este proyecto?')) {
+            window.location.href = 'proyectos.php?eliminar=' + id;
         }
+    }
 
-        // Cerrar modal al hacer click fuera
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('show');
-            }
+    function toggleStar(element) {
+        element.classList.toggle('active');
+    }
+
+    // Cerrar modales al hacer click fuera
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal-crear-proyecto')) {
+            cerrarModalCrearProyecto();
         }
-    </script>
+        if (event.target.classList.contains('modal-editar-proyecto')) {
+            cerrarModalEditarProyecto();
+        }
+    }
+
+    // Cerrar modales con tecla Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            cerrarModalCrearProyecto();
+            cerrarModalEditarProyecto();
+        }
+    });
+</script>
 </body>
 </html>

@@ -125,9 +125,8 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     <!-- Contenido -->
-    <h2 class="titulo-interfaz-derecha">Mis Tareas</h2>
     <div class="right-section" id="tareas-container">
-
+    <h2 class="titulo-interfaz-derecha">Mis Tareas</h2>
         <!-- Crear tarea -->
 
          <div class="creartareas">
@@ -237,98 +236,131 @@ $tareas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </ul>
         </div>
 
-        <!-- Formulario de edición -->
-        <?php if (isset($_GET['editar'])): 
-            $id = $_GET['editar'];
-            $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ? AND creator_id = ?");
-            $stmt->execute([$id, $_SESSION['user_id']]);
-            $edit = $stmt->fetch(PDO::FETCH_ASSOC);
+       <!-- Formulario de edición -->
+<?php if (isset($_GET['editar'])): 
+    $id = $_GET['editar'];
+    $stmt = $pdo->prepare("SELECT * FROM tasks WHERE id = ? AND creator_id = ?");
+    $stmt->execute([$id, $_SESSION['user_id']]);
+    $edit = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $stmt = $pdo->prepare("SELECT tag_id FROM task_tags WHERE task_id = ?");
-            $stmt->execute([$id]);
-            $tags_asignadas = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $stmt = $pdo->prepare("SELECT tag_id FROM task_tags WHERE task_id = ?");
+    $stmt->execute([$id]);
+    $tags_asignadas = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-            if ($edit):
-        ?>
-        <h3 class="logo-text" style="margin-top:20px;">✏ Editar Tarea</h3>
-        <form method="POST" class="form-container-tareas">
-            <input type="hidden" name="id" value="<?= $edit['id'] ?>">
-            <div class="form-group">
-                <input type="text" name="titulo" class="form-input-tareas" value="<?= htmlspecialchars($edit['title'] ?? '') ?>" required>
-            </div>
-            <div class="form-group">
-                <textarea name="descripcion" class="form-input-tareas"><?= htmlspecialchars($edit['description'] ?? '') ?></textarea>
-            </div>
+    if ($edit):
+?>
+<!-- Modal Overlay -->
+<div class="modal-overlay-editar-tarea activo" id="modalEditarTarea">
+    <div class="contenedor-modal-editar-tarea">
+        <!-- Modal Header -->
+        <div class="header-modal-editar-tarea">
+            <h3 class="titulo-modal-editar-tarea">✏️ Editar Tarea</h3>
+            <button class="btn-cerrar-modal-editar-tarea" onclick="cerrarModalEditarTarea()">&times;</button>
+        </div>
 
-            <!-- Editar proyecto -->
-            <label>Proyecto:</label>
-            <br>
-            <select name="proyecto_id" class="form-input">
-                <option value="">(Sin proyecto)</option>
-                <?php foreach ($proyectos as $p): ?>
-                    <option value="<?= $p['id'] ?>" <?= $p['id'] == $edit['project_id'] ? "selected" : "" ?>>
-                        <?= htmlspecialchars($p['name'] ?? '') ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+        <!-- Modal Body -->
+        <div class="body-modal-editar-tarea">
+            <form method="POST" class="formulario-editar-tarea">
+                <input type="hidden" name="id" value="<?= $edit['id'] ?>">
+                
+                <!-- Título -->
+                <div class="grupo-input-editar-tarea">
+                    <label class="label-editar-tarea" for="titulo">Título de la tarea</label>
+                    <input type="text" name="titulo" id="titulo" class="input-editar-tarea" value="<?= htmlspecialchars($edit['title'] ?? '') ?>" required>
+                </div>
 
-            <!-- Asignar usuario -->
-            <div class="form-group">
-                <label>Asignar a:</label>
-                <br>
-                <select name="assignee_id" class="form-input-tareas">
-                    <option value="">(Sin asignar)</option>
-                    <?php foreach ($usuarios as $u): ?>
-                        <option value="<?= $u['id'] ?>" <?= ($edit['assignee_id'] == $u['id']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($u['name'] ?? '') ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+                <!-- Descripción -->
+                <div class="grupo-input-editar-tarea">
+                    <label class="label-editar-tarea" for="descripcion">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" class="textarea-editar-tarea"><?= htmlspecialchars($edit['description'] ?? '') ?></textarea>
+                </div>
 
-            <!-- Editar etiquetas -->
-            <div class="form-group">
-                <label>Etiquetas:</label>
-                <br>
-                <?php foreach ($etiquetas as $tag): ?>
-                    <label>
-                        <input type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" 
-                               <?= in_array($tag['id'], $tags_asignadas ?? []) ? 'checked' : '' ?>>
-                        <?= htmlspecialchars($tag['name'] ?? '') ?>
-                    </label>
-                <?php endforeach; ?>
-            </div>
+                <!-- Row con Proyecto y Asignar a -->
+                <div class="fila-inputs-editar-tarea">
+                    <div class="grupo-input-editar-tarea">
+                        <label class="label-editar-tarea">Proyecto</label>
+                        <select name="proyecto_id" class="select-editar-tarea">
+                            <option value="">(Sin proyecto)</option>
+                            <?php foreach ($proyectos as $p): ?>
+                                <option value="<?= $p['id'] ?>" <?= $p['id'] == $edit['project_id'] ? "selected" : "" ?>>
+                                    <?= htmlspecialchars($p['name'] ?? '') ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-            <!-- Editar prioridad -->
-            <label>Prioridad:</label>
-            <br>
-            <select name="prioridad" class="form-input-tareas">
-                <option value="low" <?= ($edit['priority']=="low"?"selected":"") ?>>Baja</option>
-                <option value="medium" <?= ($edit['priority']=="medium"?"selected":"") ?>>Media</option>
-                <option value="high" <?= ($edit['priority']=="high"?"selected":"") ?>>Alta</option>
-                <option value="urgent" <?= ($edit['priority']=="urgent"?"selected":"") ?>>Urgente</option>
-            </select>
+                    <div class="grupo-input-editar-tarea">
+                        <label class="label-editar-tarea">Asignar a</label>
+                        <select name="assignee_id" class="select-editar-tarea">
+                            <option value="">(Sin asignar)</option>
+                            <?php foreach ($usuarios as $u): ?>
+                                <option value="<?= $u['id'] ?>" <?= ($edit['assignee_id'] == $u['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($u['name'] ?? '') ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
 
-            <!-- Editar estado -->
-            <label>Estado:</label>
-            <br>
-            <select name="estado" class="form-input-tareas">
-                <option value="todo" <?= ($edit['status']=="todo"?"selected":"") ?>>Por hacer</option>
-                <option value="in_progress" <?= ($edit['status']=="in_progress"?"selected":"") ?>>En progreso</option>
-                <option value="done" <?= ($edit['status']=="done"?"selected":"") ?>>Hecha</option>
-                <option value="archived" <?= ($edit['status']=="archived"?"selected":"") ?>>Archivada</option>
-            </select>
+                <!-- Etiquetas -->
+                <div class="grupo-input-editar-tarea">
+                    <label class="label-editar-tarea">Etiquetas</label>
+                    <div class="grupo-checkboxes-editar-tarea">
+                        <?php foreach ($etiquetas as $tag): ?>
+                            <div class="item-checkbox-editar-tarea">
+                                <input type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" class="checkbox-editar-tarea" 
+                                       <?= in_array($tag['id'], $tags_asignadas ?? []) ? 'checked' : '' ?>>
+                                <label class="label-checkbox-editar-tarea"><?= htmlspecialchars($tag['name'] ?? '') ?></label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
 
+                <!-- Row con Prioridad y Estado -->
+                <div class="fila-inputs-editar-tarea">
+                    <div class="grupo-input-editar-tarea">
+                        <label class="label-editar-tarea">Prioridad</label>
+                        <select name="prioridad" class="select-editar-tarea">
+                            <option value="low" <?= ($edit['priority']=="low"?"selected":"") ?>>🟢 Baja</option>
+                            <option value="medium" <?= ($edit['priority']=="medium"?"selected":"") ?>>🟡 Media</option>
+                            <option value="high" <?= ($edit['priority']=="high"?"selected":"") ?>>🟠 Alta</option>
+                            <option value="urgent" <?= ($edit['priority']=="urgent"?"selected":"") ?>>🔴 Urgente</option>
+                        </select>
+                    </div>
 
-            <!-- Editar fecha de vencimiento -->
-            <label>Fecha de vencimiento:</label>
-            <br>
-            <input type="date" name="due_date" class="form-input-tareas" value="<?= htmlspecialchars($edit['due_date'] ?? '') ?>">
+                    <div class="grupo-input-editar-tarea">
+                        <label class="label-editar-tarea">Estado</label>
+                        <select name="estado" class="select-editar-tarea">
+                            <option value="todo" <?= ($edit['status']=="todo"?"selected":"") ?>>📋 Por hacer</option>
+                            <option value="in_progress" <?= ($edit['status']=="in_progress"?"selected":"") ?>>⚡ En progreso</option>
+                            <option value="done" <?= ($edit['status']=="done"?"selected":"") ?>>✅ Hecha</option>
+                            <option value="archived" <?= ($edit['status']=="archived"?"selected":"") ?>>📦 Archivada</option>
+                        </select>
+                    </div>
+                </div>
 
-            <button type="submit" name="editar" class="login-btn">Guardar Cambios</button>
-        </form>
-        <?php endif; endif; ?>
+                <!-- Fecha de vencimiento -->
+                <div class="grupo-input-editar-tarea">
+                    <label class="label-editar-tarea">Fecha de vencimiento</label>
+                    <input type="date" name="due_date" class="input-editar-tarea" value="<?= htmlspecialchars($edit['due_date'] ?? '') ?>">
+                </div>
+
+                <!-- Buttons -->
+                <div class="grupo-botones-editar-tarea">
+                    <button type="button" class="btn-cancelar-editar-tarea" onclick="cerrarModalEditarTarea()">Cancelar</button>
+                    <button type="submit" name="editar" class="btn-guardar-editar-tarea">💾 Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+<?php endif; endif; ?>
+<script>
+function cerrarModalEditarTarea() {
+    // Redirigir a la página sin el parámetro editar
+    window.location.href = window.location.pathname;
+}
+</script>
+
 </body>
 </html>
